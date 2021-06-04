@@ -46,7 +46,7 @@ print(solution.findMedianSortedArrays(nums1, nums2))
 #         else:
 #             return float((nums[index] + nums[index-1])/2)
 
-###### Bad Solition too (I tried to use binary search but I do some list operation and misunderstood the binary search so I even made it worse LOL)
+###### Bad Solition too (I tried to use binary search but I misunderstood it and do some idiot list operation  so I even made it worse LOL)
 # class Solution:
 #     def findMedianSortedArrays(self, nums1, nums2) -> float:
 #         if len(nums1) < len(nums2):

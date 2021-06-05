@@ -1,12 +1,14 @@
 class Solution:
     def longestCommonPrefix(self, strs) -> str:
+        if not strs:
+            return ""
         ret = ""
         index = 0
         max_index = min(len(x) for x in strs)
         break_away = False
         while index < max_index:
             curr_c = strs[0][index]
-            for str_ in strs:
+            for str_ in strs[1:]:
                 if str_[index] != curr_c:
                     break_away = True
                     break
@@ -17,5 +19,5 @@ class Solution:
             index += 1
         return ret
 
-solution = Solution()
-print(solution.longestCommonPrefix(["dog","racecar","car"]))
+# solution = Solution()
+# print(solution.longestCommonPrefix(["dog","racecar","car"]))

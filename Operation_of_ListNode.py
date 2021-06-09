@@ -12,13 +12,13 @@ def ListtoListNode(ls = []):
         curr.val = num
         curr.next = ListNode()
         curr = curr.next
-    curr.val = None
+    curr.next = None
     return ret
 
 # Create a list from a ListNode
-def ListNodetoList(ln):
+def ListNodetoList(ln = ListNode()):
     ret = []
-    while ln.val != None:
+    while ln.next != None:
         ret.append(ln.val)
         ln = ln.next
     return ret

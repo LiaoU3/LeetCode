@@ -1,5 +1,5 @@
 class Solution:
-    def letterCombinations(self, digits: str) -> List:
+    def letterCombinations(self, digits: str) -> list:
         buttons = {
             '2':'abc',
             '3':'def',
@@ -18,7 +18,7 @@ class Solution:
             prev = self.letterCombinations(digits[:-1])
             last = buttons[digits[-1]]
             return [s + c for s in prev for c in last]
-            
+
 # solution = Solution()
 # digits = '234'
 # print(solution.letterCombinations(digits))

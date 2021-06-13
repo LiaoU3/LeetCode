@@ -8,9 +8,12 @@ class Solution:
             elif len(num) != 0:
                     num_set.add(int(num))
                     num = ''
+        else :
+            if len(num) != 0:
+                num_set.add(int(num))
         return len(num_set)
 
-solution = Solution()
-word = "leet1234code234"
+# solution = Solution()
+# word = "leet1234code234"
 
-print(solution.numDifferentIntegers(word))
+# print(solution.numDifferentIntegers(word))

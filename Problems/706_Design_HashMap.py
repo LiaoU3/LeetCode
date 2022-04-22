@@ -48,10 +48,7 @@ class MyHashMap:
 #         self.map[key] = value
 
 #     def get(self, key: int) -> int:
-#         if key in self.map:
-#             return self.map[key]
-#         else:
-#             return -1
+#         return self.map[key] if key in self.map else -1
 
 #     def remove(self, key: int) -> None:
 #         if self.get(key) != -1:

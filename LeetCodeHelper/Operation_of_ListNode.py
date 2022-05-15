@@ -5,18 +5,17 @@ class ListNode:
         self.next = next
 
 # Create a ListNode from a list
-def ListtoListNode(ls = []):
+def List2Node(ls = []):
     ret = ListNode()
     curr = ret
     for num in ls:
-        curr.val = num
-        curr.next = ListNode()
+        curr.next = ListNode(num)
         curr = curr.next
     curr.next = None
-    return ret
+    return ret.next
 
 # Create a list from a ListNode
-def ListNodetoList(ln = ListNode()):
+def Node2List(ln = ListNode()):
     ret = []
     while ln.next != None:
         ret.append(ln.val)

@@ -1,5 +1,3 @@
-import sys
-sys.path.append('/home/u3/Desktop/LeetCode')
 from Operation_of_ListNode import *
 class Solution:
     def mergeTwoLists(self, l1: ListNode, l2: ListNode) -> ListNode:
@@ -23,10 +21,10 @@ class Solution:
 
 l1 = []
 l2 = [1, 3, 4]
-l1 = ListtoListNode(l1)
-l2 = ListtoListNode(l2)
+l1 = List2Node(l1)
+l2 = List2Node(l2)
 
-print(ListNodetoList(l1))
+print(Node2List(l1))
 
 solution = Solution()
 ln = solution.mergeTwoLists(l1, l2)

@@ -1,0 +1,58 @@
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+
+from Operation_of_ListNode import *
+from typing import Optional
+from typing import List
+
+class Solution:
+    def mergeKLists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
+
+        def merge(left, right):
+            if left > right:
+                return None
+            if left == right:
+                return lists[left]
+            if left + 1 == right:
+                return mergeTwoLists(lists[left], lists[right])
+            
+            middle = left + (right-left)//2
+            l1 = merge(left, middle)
+            l2 = merge(middle + 1, right)
+            return mergeTwoLists(l1, l2)
+
+        # from problem 21 merge two sorted list
+        def mergeTwoLists(l1: ListNode, l2: ListNode) -> ListNode:
+            result = ListNode()
+            curr = result
+            while l1 or l2:
+                num1 = l1.val if l1 else 10001
+                num2 = l2.val if l2 else 10001
+                curr.next = ListNode()
+                if num1 < num2:
+                    curr.next.val = num1
+                    l1 = l1.next if l1 else l1
+                else:
+                    curr.next.val = num2
+                    l2 = l2.next if l2 else l2
+                curr = curr.next
+            return result.next
+
+        return merge(0, len(lists)-1)
+
+def main():
+    lists = [[1,4,5],[1,3,4],[2,6]]
+    new_lists_node = []
+    for ls in lists:
+        new_lists_node.append(List2Node(ls))
+
+    for ls in new_lists_node:
+        print(Node2List(ls))
+    solution = Solution()
+    print(Node2List(solution.mergeKLists(new_lists_node)))
+
+if __name__ == '__main__':
+    main()

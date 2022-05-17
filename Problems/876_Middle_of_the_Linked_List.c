@@ -6,11 +6,11 @@ struct ListNode {
 };
 
 struct ListNode* middleNode(struct ListNode* head){
-    struct ListNode* node = head;
+    struct ListNode* curr = head;
     struct ListNode* middle = head;
     int cnt = -1;
-    while (node){
-        node = node -> next;
+    while (curr){
+        curr = curr -> next;
         if (cnt %2 == 0){
             middle = middle -> next;
         }

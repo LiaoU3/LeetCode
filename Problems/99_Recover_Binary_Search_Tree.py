@@ -1,7 +1,4 @@
 # Definition for a binary tree node.
-from inspect import stack
-
-
 class TreeNode:
     def __init__(self, val=0, left=None, right=None):
         self.val = val

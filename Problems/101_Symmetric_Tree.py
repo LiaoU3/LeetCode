@@ -21,5 +21,23 @@ class Solution:
             traverse(node1.right, node2.left)
         traverse(root, root)
         return self.flag
-        
-        
+
+# another solution using yield
+# class Solution:
+#     def isSymmetric(self, root: Optional[TreeNode]) -> bool:
+#         def traverse(node1, node2):
+#             if not node1 and not node2:
+#                 return 
+#             if (node1 and not node2) or (not node1 and node2) or node1.val != node2.val:
+#                 yield False
+#             yield from traverse(node1.left, node2.right)
+#             yield from traverse(node1.right, node2.left)
+
+#         trav = traverse(root, root)
+#         while True:
+#             ret = next(trav, 'end')
+#             if ret == False:
+#                 return False
+#             if ret == 'end':
+#                 break
+#         return True

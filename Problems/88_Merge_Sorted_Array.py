@@ -1,20 +1,19 @@
 from typing import List
 class Solution:
     def merge(self, nums1: List[int], m: int, nums2: List[int], n: int) -> None:
-        pointer1 = m-1
-        pointer2 = n-1
-        pointer  = len(nums1)-1
-        while pointer1>=0 and pointer2>=0:
-            if nums1[pointer1]>nums2[pointer2]:
-                nums1[pointer] = nums1[pointer1]
-                pointer1 -= 1
+        point = m+n-1
+        m -= 1
+        n -=1
+        while m>=0 and n>=0:
+            if nums1[m]>nums2[n]:
+                nums1[point] = nums1[m]
+                m -= 1
             else:
-                nums1[pointer] = nums2[pointer2]
-                pointer2 -= 1
-            pointer -= 1
-        if pointer2 > pointer1:
-            nums1[:pointer+1] = nums2[:pointer2+1]
-        return nums1
+                nums1[point] = nums2[n]
+                n -=1
+            point -= 1
+        if n>=0:
+            nums1[:n+1] = nums2[:n+1]
 
 if __name__ =="__main__":
     sol = Solution()

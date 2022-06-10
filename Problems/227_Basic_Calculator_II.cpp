@@ -1,0 +1,44 @@
+#include<iostream>
+#include<string>
+#include<vector>
+
+using namespace std;
+
+class Solution {
+public:
+    int calculate(string s) {
+        vector<int> stack;
+        char operand = '+';
+        int curr_num = 0;
+        for(int i; i<s.length(); i++){
+            if(isdigit(s[i])){
+                curr_num = curr_num*10 + s[i] - '0';
+                cout << curr_num <<endl;
+            }
+            if (s[i]=='+' | s[i]=='-' | s[i]=='*' | s[i]=='/'| i==s.length()-1){
+                if(operand=='+'){
+                    stack.push_back(curr_num);
+                }else if(operand=='-'){
+                    stack.push_back(-curr_num);
+                }else if(operand=='*'){
+                    stack[stack.size()-1] *= curr_num;
+                }else{
+                    stack[stack.size()-1] /= curr_num;
+                }
+                operand = s[i];
+                curr_num = 0;
+            }   
+        }
+        int total = 0;
+        for (auto num:stack){
+            total += num;
+        }
+        return total;
+    }
+};
+
+int main(){
+    string s = "3+2*2";
+    Solution sol;
+    cout <<sol.calculate(s)<<endl;
+}

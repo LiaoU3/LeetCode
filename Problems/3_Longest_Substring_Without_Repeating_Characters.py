@@ -6,9 +6,8 @@ class Solution(object):
         for w in s:
             while w in sub_str:
                 sub_str = sub_str[1:]
-            else:
-                sub_str += w
-                max_len = max(max_len, len(sub_str))
+            sub_str += w
+            max_len = max(max_len, len(sub_str))
         
         return max_len
 

@@ -2,13 +2,21 @@ from typing import List
 
 class Solution:
     def moveZeroes(self, nums: List[int]) -> None:
-        point = 0
-        for num in nums:
-            if num != 0:
-                nums[point] = num
-                point += 1
-        for i in range(point, len(nums)):
-            nums[i] = 0
+        pnt = 0
+        for i in range(len(nums)):
+            if nums[i]:
+                nums[i], nums[pnt] = nums[pnt], nums[i]
+                pnt += 1
+
+# class Solution:
+#     def moveZeroes(self, nums: List[int]) -> None:
+#         point = 0
+#         for num in nums:
+#             if num:
+#                 nums[point] = num
+#                 point += 1
+#         for point in range(point, len(nums)):
+#             nums[point] = 0
 # class Solution:
 #     def moveZeroes(self, nums: List[int]) -> None:
 #         point_zero = len(nums) - 1

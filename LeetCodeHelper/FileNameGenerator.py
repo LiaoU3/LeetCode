@@ -1,7 +1,7 @@
 from pathlib import Path
 import pathlib
 import os
-path = str(pathlib.Path(__file__).parent.parent) + '/Problems/'
+path = str(pathlib.Path(__file__).parent.parent) + '\\Problems\\'
 
 name = input("Please input the title name : ")
 programing_language = input("Enter the programing language (py(default), c(0), cpp(1) etc.) : ")

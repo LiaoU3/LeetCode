@@ -16,12 +16,8 @@ public:
             curr    = num;
             if(pre>curr){
                 count ++;
-                if(count==2){
-                    return false;
-                }
-                if(pre_pre>curr){
-                    curr = pre;
-                }
+                if(count==2) return false;
+                if(pre_pre>curr) curr = pre;
             }
         }
         return true;

@@ -12,7 +12,7 @@ class Solution:
         curr = head
         # reverse curr and pre
         while curr:
-            nxt = nxt.next
+            nxt = curr.next
             curr.next = pre
             pre = curr
             curr = nxt

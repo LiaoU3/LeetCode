@@ -25,6 +25,23 @@ class Solution:
         dfs(sr, sc)
         return image
 
+# dfs but cleaner
+class Solution:
+    def floodFill(self, image: List[List[int]], sr: int, sc: int, color: int) -> List[List[int]]:
+        originColor = image[sr][sc]
+        if originColor == color:
+            return image
+        ROW = len(image)
+        COL = len(image[0])
+        directions = ((0, 1), (1, 0), (0, -1), (-1, 0))
+        def traverse(r, c):
+            if not(ROW>r>=0 and COL>c>=0 and image[r][c]==originColor):
+                return
+            image[r][c] = color
+            for dr, dc in directions:
+                traverse(r+dr, c+dc)
+        traverse(sr, sc)
+        return image
 
 # using bfs and "deque" could make it faster
 class Solution:
@@ -46,6 +63,27 @@ class Solution:
                 if m>nxt_x>=0 and n>nxt_y>=0 and image[nxt_x][nxt_y] == original_color:
                     image[nxt_x][nxt_y] = color
                     queue.append([nxt_x, nxt_y])
+        return image
+
+# bfs using tuple
+class Solution:
+    def floodFill(self, image: List[List[int]], sr: int, sc: int, color: int) -> List[List[int]]:
+        ROW = len(image)
+        COL = len(image[0])
+        originColor = image[sr][sc]
+        if color == originColor:
+            return image
+        image[sr][sc] = color
+        directions = ((0, 1), (1, 0), (0, -1), (-1, 0))
+        qu = deque([(sr, sc)])
+        
+        while qu:
+            r, c = qu.popleft()
+            for dr, dc in directions:
+                nr, nc = r+dr, c+dc
+                if ROW>nr>=0 and COL>nc>=0 and image[nr][nc] == originColor:
+                    image[nr][nc] = color
+                    qu.append((nr, nc))
         return image
 
 # bfs

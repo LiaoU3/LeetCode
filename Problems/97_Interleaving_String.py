@@ -1,19 +1,21 @@
 class Solution:
     def isInterleave(self, s1: str, s2: str, s3: str) -> bool:
-        p1 = p2 = 0
-        for p3 in range(len(s3)):
-            if p1<len(s1) and s3[p3]==s1[p1]:
-                p1 += 1
-            elif p2<len(s2) and s3[p3]==s2[p2]:
-                p2 += 1
-            elif p3 != len(s3)-1:
-                return False
-                
-        return True
-
-if __name__ == '__main__':
-    sol = Solution()
-    s1 = "aabcc"
-    s2 = "dbbca"
-    s3 = "aadbbcbcac"
-    print(sol.isInterleave(s1, s2, s3))
+        if len(s1) + len(s2) != len(s3):
+            return False
+        
+        dp = [[False for j in range(len(s2)+1)] for i in range(len(s1)+1)]
+        dp[0][0] = True
+        
+        for i in range(1,  len(s1)+1):
+            dp[i][0] = dp[i-1][0] and s1[i-1]==s3[i-1]
+        
+        for i in range(1, len(s2)+1):
+            dp[0][i] = dp[0][i-1] and s2[i-1]==s3[i-1] 
+            
+        for i in range(1, len(s1)+1):
+            for j in range(1, len(s2)+1):
+                if s1[i-1] == s3[i+j-1]:
+                    dp[i][j] = dp[i][j] or dp[i-1][j]
+                if s2[j-1] == s3[i+j-1]:
+                    dp[i][j] = dp[i][j] or dp[i][j-1]
+        return dp[-1][-1]

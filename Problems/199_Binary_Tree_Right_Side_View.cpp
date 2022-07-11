@@ -12,6 +12,24 @@ struct TreeNode {
 };
 
 using namespace std;
+
+// dfs
+class Solution {
+public:
+    vector<int> rightView;
+    vector<int> rightSideView(TreeNode* root) {
+        traverse(root, 0);
+        return rightView;
+    }
+    void traverse(TreeNode* node, int height){
+        if(node==NULL) return;
+        if(height==rightView.size()) rightView.push_back(node->val);
+        traverse(node->right, height+1);
+        traverse(node->left, height+1);
+    }
+};
+
+// bfs
 class Solution {
 public:
     vector<int> rightSideView(TreeNode* root) {

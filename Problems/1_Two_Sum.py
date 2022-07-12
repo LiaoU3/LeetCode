@@ -1,3 +1,11 @@
+class Solution:
+    def twoSum(self, nums: List[int], target: int) -> List[int]:
+        table = {}
+        for i, num in enumerate(nums):
+            if num in table.keys():
+                return [table[num], i]
+            table[target-num] = i
+
 # Time Complexity O(n)
 class Solution:
     def twoSum(self, nums: List[int], target: int) -> List[int]:

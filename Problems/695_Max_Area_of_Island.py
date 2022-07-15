@@ -1,6 +1,38 @@
 from typing import List
 from collections import deque
 
+# bfs without using self
+class Solution:
+    def maxAreaOfIsland(self, grid: List[List[int]]) -> int:
+        ROW = len(grid)
+        COL = len(grid[0])
+        directions = ((0, 1), (1, 0), (0, -1), (-1, 0))
+        
+        def bfs(r, c):
+            if not(ROW>r>=0 and COL>c>=0)or not grid[r][c]:
+                return 0
+            grid[r][c] = 0
+            total = 1
+            qu = deque([(r, c)])
+            while qu:
+                length = len(qu)
+                for _ in range(length):
+                    r, c = qu.popleft()
+                    for dr, dc in directions:
+                        nr = r+dr
+                        nc = c+dc
+                        if ROW>nr>=0 and COL>nc>=0 and grid[nr][nc]==1:
+                            qu.append((nr, nc))
+                            grid[nr][nc] = 0
+                            total += 1
+            return total
+        
+        maxArea = 0
+        for r in range(ROW):
+            for c in range(COL):
+                maxArea = max(maxArea, bfs(r, c))
+        return maxArea
+
 # bfs
 class Solution:
     def maxAreaOfIsland(self, grid: List[List[int]]) -> int:

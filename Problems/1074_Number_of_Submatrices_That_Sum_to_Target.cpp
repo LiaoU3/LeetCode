@@ -1,3 +1,29 @@
+class Solution {
+public:
+    int numSubmatrixSumTarget(vector<vector<int>>& matrix, int target) {
+        int ROW = matrix.size();
+        int COL = matrix[0].size();
+        for(int r=0; r<ROW; r++){
+            for(int c=1; c<COL; c++){
+                matrix[r][c] += matrix[r][c-1];
+            }
+        }
+        int cnt = 0;
+        for(int cl=0; cl<COL; cl++){
+            for(int cr = cl; cr<COL; cr++){
+                unordered_map<int, int> hm;
+                hm[0] = 1;
+                int curr = 0;
+                for(int r=0; r<ROW; r++){
+                    curr += matrix[r][cr]-(cl>0 ? matrix[r][cl-1] : 0);
+                    cnt += hm[curr-target];
+                    hm[curr]++;
+                }		
+            }
+        }
+        return cnt;
+    }
+};
 
 // got TLE at test case 39
 class Solution {

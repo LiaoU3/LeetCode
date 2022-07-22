@@ -7,7 +7,8 @@ public:
         int down = ROW-1;
         int middleR=0;
         while(up<=down){
-            int middleR = (up+down)/2;
+            middleR = (up+down)/2;
+            cout<<middleR<<endl;
             if(matrix[middleR][0]==target){
                 return true;
             }else if(matrix[middleR][0]<target){
@@ -16,9 +17,10 @@ public:
                 down = middleR-1;
             }
         }
-        if(matrix[middleR][0]>target)
-            middleR--;
-        cout<<middleR;
+        if(matrix[middleR][0]>target&&middleR>0){
+            middleR--; 
+        }
+
         int left = 0;
         int right = COL-1;
         int middleC=0;

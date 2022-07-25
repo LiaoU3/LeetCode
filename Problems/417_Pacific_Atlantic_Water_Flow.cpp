@@ -2,7 +2,6 @@
 #include<queue>
 
 using namespace std;
-
 class Solution {
 public:
     vector<vector<int>> pacificAtlantic(vector<vector<int>>& heights) {
@@ -23,18 +22,16 @@ public:
         
         while(!qu.empty()){
             int len = qu.size();
-            for(int i = 0; i < len; ++i){
-                pair<int, int> coord = qu.front();
-                qu.pop();
-                int r = coord.first;
-                int c = coord.second;
-                for(pair<int, int> dir: directions){
-                    int nextr = r + dir.first;
-                    int nextc = c + dir.second;
-                    if(m > nextr && nextr >= 0 && n > nextc && nextc >= 0 && !pac[nextr][nextc] && heights[nextr][nextc] >= heights[r][c]){
-                        pac[nextr][nextc] = 1;
-                        qu.push({nextr, nextc});
-                    }
+            pair<int, int> coord = qu.front();
+            qu.pop();
+            int r = coord.first;
+            int c = coord.second;
+            for(pair<int, int> dir: directions){
+                int nextr = r + dir.first;
+                int nextc = c + dir.second;
+                if(m > nextr && nextr >= 0 && n > nextc && nextc >= 0 && !pac[nextr][nextc] && heights[nextr][nextc] >= heights[r][c]){
+                    pac[nextr][nextc] = 1;
+                    qu.push({nextr, nextc});
                 }
             }
         }
@@ -50,18 +47,16 @@ public:
         }
         while(!qu.empty()){
             int len = qu.size();
-            for(int i = 0; i < len; ++i){
-                pair<int, int> coord = qu.front();
-                qu.pop();
-                int r = coord.first;
-                int c = coord.second;
-                for(pair<int, int> dir: directions){
-                    int nextr = r + dir.first;
-                    int nextc = c + dir.second;
-                    if(m > nextr && nextr >= 0 && n > nextc && nextc >= 0 && !atl[nextr][nextc] && heights[nextr][nextc] >= heights[r][c]){
-                        atl[nextr][nextc] = 1;
-                        qu.push({nextr, nextc});
-                    }
+            pair<int, int> coord = qu.front();
+            qu.pop();
+            int r = coord.first;
+            int c = coord.second;
+            for(pair<int, int> dir: directions){
+                int nextr = r + dir.first;
+                int nextc = c + dir.second;
+                if(m > nextr && nextr >= 0 && n > nextc && nextc >= 0 && !atl[nextr][nextc] && heights[nextr][nextc] >= heights[r][c]){
+                    atl[nextr][nextc] = 1;
+                    qu.push({nextr, nextc});
                 }
             }
         }
@@ -76,6 +71,7 @@ public:
         return res;
     }
 };
+
 
 
 

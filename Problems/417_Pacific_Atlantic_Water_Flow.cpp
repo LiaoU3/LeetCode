@@ -20,14 +20,14 @@ public:
             pac[0][i] = 1;
             qu.push({0, i});
         }
-
+        
         while(!qu.empty()){
             int len = qu.size();
             for(int i = 0; i < len; ++i){
                 pair<int, int> coord = qu.front();
                 qu.pop();
-                int c = coord.first;
-                int r = coord.second;
+                int r = coord.first;
+                int c = coord.second;
                 for(pair<int, int> dir: directions){
                     int nextr = r + dir.first;
                     int nextc = c + dir.second;
@@ -38,12 +38,13 @@ public:
                 }
             }
         }
-        
+
         for(int i = 0; i < m; ++i){
             atl[i][n-1] = 1;
             qu.push({i, n-1});
         }
-        for(int i = 1; i < n; ++i){
+
+        for(int i = 0; i < n-1; ++i){
             atl[m-1][i] = 1;
             qu.push({m-1, i});
         }
@@ -52,8 +53,8 @@ public:
             for(int i = 0; i < len; ++i){
                 pair<int, int> coord = qu.front();
                 qu.pop();
-                int c = coord.first;
-                int r = coord.second;
+                int r = coord.first;
+                int c = coord.second;
                 for(pair<int, int> dir: directions){
                     int nextr = r + dir.first;
                     int nextc = c + dir.second;
@@ -64,7 +65,7 @@ public:
                 }
             }
         }
-        
+
         vector<vector<int>> res;
         for(int i = 0; i < m; ++i){
             for(int j = 0; j < n; ++j){
@@ -75,6 +76,7 @@ public:
         return res;
     }
 };
+
 
 
 // MLE

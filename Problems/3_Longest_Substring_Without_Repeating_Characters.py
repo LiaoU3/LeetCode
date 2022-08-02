@@ -1,4 +1,19 @@
-#### Best Solition (using hashtable and slidingwindow)
+# Best Solution
+class Solution:
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        if len(s)<1:
+            return len(s)
+        left = left = 0
+        maxLen = 1
+        lastSeen = [-1]*95
+        for right in range(len(s)):
+            c = s[right]
+            left = max(left, lastSeen[ord(c)-32]+1)
+            lastSeen[ord(c)-32] = right
+            maxLen = max(maxLen, right-left+1)
+        return maxLen
+
+
 class Solution(object):
     def lengthOfLongestSubstring(self, s):
         sub_str = ''

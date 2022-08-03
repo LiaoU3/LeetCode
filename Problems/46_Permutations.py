@@ -3,6 +3,22 @@ from typing import List
 class Solution:
     def permute(self, nums: List[int]) -> List[List[int]]:
         res = []
+        def helper(currNums, usedIndex):
+            if  len(currNums) == len(nums):
+                res.append(currNums)
+                return
+            for i, num in enumerate(nums):
+                if i in usedIndex:
+                    continue
+                helper(currNums + [num], usedIndex + [i])
+        
+        helper([], [])
+        return res
+                
+
+class Solution:
+    def permute(self, nums: List[int]) -> List[List[int]]:
+        res = []
         def helper(curr_list, history_index_list):
             if len(curr_list)==len(nums):
                 res.append(curr_list)

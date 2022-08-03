@@ -1,3 +1,28 @@
+# A better and cleaner solution
+class MinStack:
+
+    def __init__(self):
+        self.stack = []
+
+    def push(self, val: int) -> None:
+        # when push, record every smallest nums that ever seen
+        if self.stack:
+            minVal = min(val, self.stack[-1][1])
+        else:
+            minVal = val
+        self.stack.append((val, minVal))
+
+
+    def pop(self) -> None:
+        return self.stack.pop()[0]
+
+    def top(self) -> int:
+        return self.stack[-1][0]
+
+    def getMin(self) -> int:
+        return self.stack[-1][1]
+        
+
 class MinStack:
 
     def __init__(self):

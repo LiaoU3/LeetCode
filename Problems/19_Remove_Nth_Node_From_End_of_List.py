@@ -6,6 +6,23 @@
 from typing import Optional
 from Operation_of_ListNode import *
 
+# Best clean solution
+class Solution:
+    def removeNthFromEnd(self, head: Optional[ListNode], n: int) -> Optional[ListNode]:
+        dummy = ListNode()
+        dummy.next = head
+        fast = dummy
+        slow = dummy
+        cnt = 0
+        while fast.next:
+            fast = fast.next
+            if cnt == n:
+                slow = slow.next
+            else:
+                cnt += 1
+        slow.next = slow.next.next
+        return dummy.next
+
 class Solution:
     def removeNthFromEnd(self, head: Optional[ListNode], n: int) -> Optional[ListNode]:
         fast = head

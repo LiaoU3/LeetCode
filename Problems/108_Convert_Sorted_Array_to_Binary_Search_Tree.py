@@ -4,6 +4,21 @@ class TreeNode:
         self.val = val
         self.left = left
         self.right = right
+
+# cleaner solution
+class Solution:
+    def sortedArrayToBST(self, nums: List[int]) -> Optional[TreeNode]:
+        
+        def build(left, right):
+            if left > right:
+                return None
+            middle = (left+right) // 2
+            father = TreeNode(nums[middle])
+            father.left  = build(left, middle-1)
+            father.right = build(middle+1, right)
+            return father
+        return build(0, len(nums)-1)
+
 class Solution:
     def sortedArrayToBST(self, nums: List[int]) -> Optional[TreeNode]:
         

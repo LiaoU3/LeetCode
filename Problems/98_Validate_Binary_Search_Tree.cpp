@@ -14,8 +14,8 @@
 class Solution {
 public:
     bool isValidBST(TreeNode* root, long lowerBound = LONG_MIN, long upperBound = LONG_MAX) {
-        if (!root) return false;
-        if (root -> val > upperBound || lowerBound > root -> val) return false;
+        if (!root) return true;
+        if (root -> val >= upperBound || lowerBound >= root -> val) return false;
         return isValidBST(root -> left, lowerBound, root -> val) && isValidBST(root -> right, root -> val, upperBound);
     }
 };

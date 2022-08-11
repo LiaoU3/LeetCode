@@ -7,6 +7,27 @@ class TreeNode:
         self.left = left
         self.right = right
 
+# cleanset solution
+class Solution:
+    def isValidBST(self, root: Optional[TreeNode], lowerBound = float('-inf'), upperBound = float('inf')) -> bool:
+        if not root:
+            return True
+        if not(upperBound > root.val > lowerBound):
+            return False
+        return  self.isValidBST(root.left, lowerBound, root.val) and self.isValidBST(root.right, root.val, upperBound)
+
+# cleaner solution
+class Solution:
+    def isValidBST(self, root: Optional[TreeNode]) -> bool:
+        
+        def traverse(node, lowerBound, upperBound):
+            if not node:
+                return True
+            if not(upperBound > node.val > lowerBound):
+                return False
+            return  traverse(node.left, lowerBound, node.val) and traverse(node.right, node.val, upperBound)
+        
+        return traverse(root, float('-inf'), float('inf'))
 
 class Solution:
     def isValidBST(self, root: Optional[TreeNode]) -> bool:

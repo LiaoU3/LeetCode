@@ -4,6 +4,27 @@
 #         self.val = val
 #         self.left = left
 #         self.right = right
+
+# using stack
+class BSTIterator:
+
+    def __init__(self, root: Optional[TreeNode]):
+        self.stack = []
+        self.curr = root
+
+    def next(self) -> int:
+        while self.curr:
+            self.stack.append(self.curr)
+            self.curr = self.curr.left
+        self.curr = self.stack.pop()
+        res = self.curr.val
+        self.curr = self.curr.right
+        return res
+
+    def hasNext(self) -> bool:
+        return self.stack or self.curr
+
+# using yield
 class BSTIterator:
 
     def __init__(self, root: Optional[TreeNode]):

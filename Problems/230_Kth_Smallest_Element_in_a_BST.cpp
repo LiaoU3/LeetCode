@@ -42,10 +42,28 @@ public:
 
 class Solution {
 public:
+    int kthSmallest(TreeNode* root, int k) {
+        stack<TreeNode*> st;
+        while (!st.empty() || root) {
+            while (root) {
+                st.push(root);
+                root = root ->left;
+            }
+            root = st.top();
+            st.pop();
+            --k;
+            if (k == 0) return root -> val;     
+            root = root -> right;
+        }
+        return -1;
+    }
+};
+
+class Solution {
+public:
     int count;
     int kthSmallest(TreeNode* root, int k){
         stack<TreeNode*> st;
-        st.push(root);
         TreeNode* curr = root;
         while(!st.empty() || curr){
             while(curr){

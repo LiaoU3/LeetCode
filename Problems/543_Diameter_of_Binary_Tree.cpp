@@ -27,6 +27,21 @@ struct TreeNode {
 //     }
 // };
 
+class Solution {
+public:
+    int diameterOfBinaryTree(TreeNode* root) {
+        int longest = 0;
+        traverse(root, longest);
+        return longest;
+    }
+    int traverse(TreeNode* node, int& longest) {
+        if (!node) return 0;
+        int l = traverse(node -> left, longest);
+        int r = traverse(node -> right, longest);
+        longest = max(longest, l+r);
+        return max(l, r) + 1;
+    }
+};
 
 class Solution {
 public:

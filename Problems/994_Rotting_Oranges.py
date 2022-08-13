@@ -1,6 +1,39 @@
 from typing import List
 from collections import deque
 
+# cleaner solution
+class Solution:
+    def orangesRotting(self, grid: List[List[int]]) -> int:
+        ROW = len(grid)
+        COL = len(grid[0])        
+        
+        fresh = 0
+        curr = deque([])
+        for r in range(ROW):
+            for c in range(COL):
+                if grid[r][c] == 2:
+                    curr.append((r, c))
+                elif grid[r][c] == 1:
+                    fresh += 1
+        if not fresh:
+            return 0
+        directions = ((0, 1), (1, 0), (0, -1), (-1, 0))
+        cnt = -1
+        while curr:
+            length = len(curr)
+            cnt += 1
+            for _ in range(length):
+                currR, currC = curr.popleft()
+                for dr, dc in directions:
+                    nextR = currR + dr
+                    nextC = currC + dc
+                    if ROW > nextR >= 0 and COL > nextC >= 0 and grid[nextR][nextC] == 1:
+                        fresh -= 1
+                        curr.append((nextR, nextC))
+                        grid[nextR][nextC] = 2
+
+        return cnt if not fresh else -1
+
 class Solution:
     def orangesRotting(self, grid: List[List[int]]) -> int:
         ROW = len(grid)

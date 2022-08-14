@@ -9,6 +9,46 @@ class Solution {
 public:
     int numBusesToDestination(vector<vector<int>>& routes, int source, int target) {
         if (source == target) return 0;
+        unordered_map<int, vector<int>> hm;
+        for (int i = 0; i < routes.size(); ++i) {
+            vector<int> route(routes[i]);
+            for (auto stop : route) {
+                hm[stop].push_back(i);
+            }
+        }
+        // 0 : unused, 1 : used
+        vector<int> routeStatus(routes.size(), 0);
+        queue<int> qu;
+        qu.push(source);
+        int cnt = 0;
+        while (!qu.empty()) {
+            int len = qu.size();
+            ++cnt;
+            for (int i = 0; i < len; ++i) {
+                int currStop = qu.front();
+                qu.pop();
+                for (auto route : hm[currStop]) {
+                    if (routeStatus[route]) {
+                        continue;
+                    }
+                    routeStatus[route] = 1;
+                    for (auto otherStop : routes[route]) {
+                        if (otherStop == target) {
+                            return cnt;
+                        }
+                        qu.push(otherStop);
+                    }
+                }
+            }
+        }
+        return -1;
+    }
+};
+
+class Solution {
+public:
+    int numBusesToDestination(vector<vector<int>>& routes, int source, int target) {
+        if (source == target) return 0;
         // int : stop, set<int> : every busNum pass through this stop
         unordered_map<int, unordered_set<int>> busStop;
 

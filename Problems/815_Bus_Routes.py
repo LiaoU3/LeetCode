@@ -5,6 +5,37 @@ class Solution:
     def numBusesToDestination(self, routes: List[List[int]], source: int, target: int) -> int:
         if source == target:
             return 0
+        hm = defaultdict(list)
+        for bus, route in enumerate(routes):
+            for stop in route:
+                hm[stop].append(bus)
+
+        if not hm[source] or not hm[target]:
+            return -1
+        # 0: unused, 1: used
+        busStatus = [0] * len(routes)
+        
+        currStop = deque([source])
+        cnt = 0
+        while currStop:
+            length = len(currStop)
+            cnt += 1
+            for _ in range(length):
+                stop = currStop.popleft()
+                for bus in hm[stop]:
+                    if busStatus[bus]:
+                        continue
+                    busStatus[bus] = 1
+                    for otherStop in routes[bus]:
+                        if otherStop == target:
+                            return cnt
+                        currStop.append(otherStop)
+        return -1
+
+class Solution:
+    def numBusesToDestination(self, routes: List[List[int]], source: int, target: int) -> int:
+        if source == target:
+            return 0
 
         # every busStop that busNum will stop
         busStop = defaultdict(set)

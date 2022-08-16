@@ -1,4 +1,51 @@
-// Google Coding style
+// another clean solution
+class Solution {
+public:
+    int orangesRotting(vector<vector<int>>& grid) {
+        int ROW = grid.size();
+        int COL = grid[0].size();
+        queue<pair<int, int>> qu;
+        int freshCnt = 0;
+        for (int r = 0; r < ROW; ++r) {
+            for (int c = 0; c < COL; ++c) {
+                if (grid[r][c] == 2) {
+                    qu.push({r, c});
+                }else if (grid[r][c] == 1) {
+                    ++freshCnt;
+                }
+            }
+        }
+        if (!freshCnt) {
+            return 0;
+        }
+        vector<pair<int, int>> directions = {{0, 1}, {1, 0}, {-1, 0}, {0, -1}};
+        int round = -1;
+        while (!qu.empty()) {
+            int len = qu.size();
+            ++round;
+            for (int i = 0; i < len; ++i) {
+                int currR = qu.front().first;
+                int currC = qu.front().second;
+                qu.pop();
+                for (auto dir : directions) {
+                    int nextR = currR + dir.first;
+                    int nextC = currC + dir.second;
+                    if (ROW > nextR && nextR >= 0 && COL > nextC && nextC >= 0 && grid[nextR][nextC] == 1) {
+                        grid[nextR][nextC] = 2;
+                        --freshCnt;
+                        qu.push({nextR, nextC});
+                    }
+                }
+            }
+        }
+        if (freshCnt) {
+            return -1;
+        }else{
+            return round;
+        }
+    }
+};
+
 class Solution {
 public:
     int orangesRotting(vector<vector<int>>& grid) {

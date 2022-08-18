@@ -44,7 +44,7 @@ public:
             counts.push_back(it.second);
         }
         sort(counts.begin(), counts.end());
-        reverse(counts.rbegin(), counts.rend());
+        reverse(counts.begin(), counts.end());
 
         int target = (arr.size() + 1) / 2;
         int res = 0;

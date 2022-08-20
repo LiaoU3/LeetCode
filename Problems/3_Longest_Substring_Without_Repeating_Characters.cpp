@@ -3,6 +3,26 @@
 
 using namespace std;
 
+// using set makes it faster
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
+        if (!s.length()) return 0;
+        unordered_set<char> seen;
+        int l = 0;
+        int maxLen = 1;
+        for (int r = 0; r < s.length(); ++r) {
+            while (seen.count(s[r])) {
+                seen.erase(s[l]);
+                ++l;
+            }
+            seen.insert(s[r]);
+            maxLen = max(maxLen, r - l + 1);
+        }
+        return maxLen;
+    }
+};
+
 class Solution {
 public:
     int lengthOfLongestSubstring(string s) {

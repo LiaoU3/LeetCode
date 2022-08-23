@@ -3,6 +3,21 @@ from typing import List
 class Solution:
     def permute(self, nums: List[int]) -> List[List[int]]:
         res = []
+        
+        def helper(curr: List[int]):
+            if len(curr) == len(nums):
+                res.append(curr)
+                return
+            for num in nums:
+                if num in curr:
+                    continue
+                helper(curr + [num])
+        helper([])
+        return res
+
+class Solution:
+    def permute(self, nums: List[int]) -> List[List[int]]:
+        res = []
         def helper(currNums, usedIndex):
             if  len(currNums) == len(nums):
                 res.append(currNums)

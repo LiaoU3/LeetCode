@@ -4,6 +4,39 @@
 #         self.val = val
 #         self.next = next
 
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+
+
+class Solution:
+    def isPalindrome(self, head: Optional[ListNode]) -> bool:
+        fast = head
+        slow = head
+        pre = None
+        while fast and fast.next:
+            fast = fast.next.next
+
+            nxt = slow.next
+            slow.next = pre
+            pre = slow
+            slow = nxt
+
+        if fast:
+            fast = slow.next
+        else:
+            fast = slow
+        
+        while fast:
+            if fast.val != pre.val:
+                return False
+            fast = fast.next
+            pre = pre.next
+        return True
+
+
 # Time Complexity : O(n), Space Complexity : O(1)
 class Solution:
     def isPalindrome(self, head: Optional[ListNode]) -> bool:

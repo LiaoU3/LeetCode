@@ -1,3 +1,6 @@
+from typing import List
+
+
 class Solution:
     def twoSum(self, nums: List[int], target: int) -> List[int]:
         table = {}
@@ -5,6 +8,7 @@ class Solution:
             if num in table.keys():
                 return [table[num], i]
             table[target-num] = i
+
 
 # Time Complexity O(n)
 class Solution:

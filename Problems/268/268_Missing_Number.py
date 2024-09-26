@@ -10,6 +10,13 @@ class Solution:
         ret ^= i+1
         return ret
 
+# class Solution:
+#     def missingNumber(self, nums: List[int]) -> int:
+#         total = int((len(nums) + 1) * len(nums) / 2)
+#         for num in nums:
+#             total -= num
+#         return total
+
 # using Arithmetic sequence formula
 # class Solution:
 #     def missingNumber(self, nums: List[int]) -> int:

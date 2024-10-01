@@ -25,3 +25,16 @@ class Solution:
             globalMax = max(globalMax, localMax)
             print(localMin, localMax, globalMax)
         return globalMax
+
+class Solution:
+    def maxProduct(self, nums: List[int]) -> int:
+        dp = [[-float("Inf"), float("Inf")] for _ in range(len(nums))]  # [Largest, Smallest]
+        dp[0][0] = nums[0]
+        dp[0][1] = nums[0]
+        res = dp[0][0]
+        for i in range(1, len(nums)):
+            num = nums[i]
+            dp[i][0] = max(num, num * dp[i - 1][0], num * dp[i - 1][1])
+            dp[i][1] = min(num, num * dp[i - 1][0], num * dp[i - 1][1])
+            res = max(res, dp[i][0])
+        return res

@@ -1,4 +1,20 @@
 class Solution:
+    def generateParenthesis(self, n: int) -> List[str]:
+
+        res = []
+        def backtrack(s: str, l: int, r: int):
+            if l == r == n:
+                res.append(s)
+                return
+            if l < n:
+                backtrack(s + "(", l + 1, r)
+            if l > r:
+                backtrack(s + ")", l, r + 1)
+        backtrack("", 0, 0)
+        return res
+            
+
+class Solution:
     def generateParenthesis(self, n: int) -> list:
         stack = []
         res = []

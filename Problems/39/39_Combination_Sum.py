@@ -1,5 +1,23 @@
 class Solution:
     def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
+        res = []
+        def backtrack(curr, i, total):
+            if total == target:
+                res.append(curr.copy())
+                return
+            if total > target:
+                return
+            for j, num in enumerate(candidates):
+                if j < i:
+                    continue
+                curr.append(num)
+                backtrack(curr, j, total + num)
+                curr.pop()
+        backtrack([], 0, 0)
+        return res
+
+class Solution:
+    def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
         candidates.sort()
         res = []
         

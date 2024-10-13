@@ -1,3 +1,13 @@
+class Solution:
+    def hammingWeight(self, n: int) -> int:
+        cnt = 0
+        num = 1
+        while num <= n:
+            if num & n:
+                cnt += 1
+            num <<= 1
+        return cnt
+
 # Operation in bits would make it run faster
 
 class Solution:

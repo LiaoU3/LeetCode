@@ -111,6 +111,7 @@ class Solution:
 #                 curr = nxt
 #         return image
 
+
 if __name__ =='__main__':
     image = [[1,1,1],[1,1,0],[1,0,1]]
     sr = 1

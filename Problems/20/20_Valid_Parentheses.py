@@ -1,3 +1,26 @@
+class Solution:
+    def isValid(self, s: str) -> bool:
+        stack = []
+        for c in s:
+            if stack:
+                if c in "([{":
+                    stack.append(c)
+                else:
+                    if stack[-1] == "(" and c == ")":
+                        stack.pop()
+                    elif stack[-1] == "[" and c == "]":
+                        stack.pop()
+                    elif stack[-1] == "{" and c == "}":
+                        stack.pop()
+                    else:
+                        return False
+            else:
+                if c == ")" or c == "]" or c == "}":
+                    return False
+                else:
+                    stack.append(c)
+        return True if not stack else False
+
 ## 2 solutions below have the similar speed
 class Solution:
     def isValid(self, s: str) -> bool:

@@ -16,6 +16,34 @@ class Solution:
 				# ans = s[start:start+maxLen]
 		return s[start:start+maxLen]
 
+class Solution:
+    def longestPalindrome(self, s: str) -> str:
+        
+        def check(i):
+            # Odd
+            l = r = i
+            pal = ""
+            while 0 <= l and r < len(s) and s[l] == s[r]:
+                pal = s[l: r + 1]
+                l -= 1
+                r += 1
+
+            # Even
+            l = i
+            r = i + 1
+            while 0 <= l and r < len(s) and s[l] == s[r]:
+                if (r - l + 1) > len(pal):
+                    pal = s[l:r + 1]
+                l -= 1
+                r += 1
+            return pal
+        res = ""
+        for i in range(len(s)):
+            pal = check(i)
+            if len(pal) > len(res):
+                res = pal
+        return res
+
 # class Solution:
 #     def longestPalindrome(self, s: str) -> str:
 #         self.s = s

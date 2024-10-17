@@ -24,4 +24,5 @@ class Solution:
                 if backtrack(j + 1, k, subsetSum + nums[j]):
                     return True
                 used[j] = False
+            return False
         return backtrack(0, k, 0)

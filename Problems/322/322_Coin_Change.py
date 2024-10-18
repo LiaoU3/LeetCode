@@ -1,6 +1,20 @@
 import collections
 from typing import List
 
+
+class Solution:
+    def coinChange(self, coins: List[int], amount: int) -> int:
+        coins.sort()  # It will be faster if we sort it first
+        dp = [float("Inf")] * (amount + 1)
+        dp[0] = 0
+        for i in range(1, amount + 1):
+            for coin in coins:
+                j = i - coin
+                if j < 0:
+                    break  # And break when out of bound
+                dp[i] = min(dp[i], dp[j] + 1)
+        return dp[-1] if dp[-1] != float("Inf") else -1
+
 class Solution:
     def coinChange(self, coins: List[int], amount: int) -> int:
         dp = [float("Inf")] * (amount + 1)

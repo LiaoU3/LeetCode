@@ -5,7 +5,7 @@ class TreeNode:
         self.left = left
         self.right = right
 
-# c;ean solution
+# clean solution
 class Solution:
     def kthSmallest(self, root: Optional[TreeNode], k: int) -> int:
         stack = []
@@ -36,7 +36,26 @@ class Solution:
             if k == 0:
                 return curr.val
             curr = curr.right
-            
+
+class Solution:
+    def kthSmallest(self, root: Optional[TreeNode], k: int) -> int:
+        self.count = 0
+        self.res = -1
+        def dfs(node):
+            if not node:
+                return
+            if self.count >= k:
+                return
+            dfs(node.left)
+            self.count += 1
+            if self.count == k:
+                self.res = node.val
+                return
+            dfs(node.right)
+        
+        dfs(root)
+        return self.res
+
 # class Solution:
 #     def __init__(self):
 #         self.k = None

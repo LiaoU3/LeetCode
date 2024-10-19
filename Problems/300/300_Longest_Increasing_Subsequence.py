@@ -26,33 +26,30 @@ class Solution:
                 dp[i] = num
         return len(dp)
 
-
-# Time Complexity : O(N*Log(N))
 class Solution:
     def lengthOfLIS(self, nums: List[int]) -> int:
-        maxLen = 0
-        n = len(nums)
-        dp = [0] * n
-
-        def binarySearch(left, right, target):
-            if left > right:
-                return left
-            middle = (left + right) // 2
-            if dp[middle] == target:
-                return middle
-            elif dp[middle] > target:
-                return binarySearch(left, middle-1, target)
+        dp = []
+        
+        def binary_search(l, r, target):
+            if l > r:
+                return l
+            m = (l + r) // 2
+            if dp[m] == target:
+                return m
+            elif dp[m] > target:
+                return binary_search(l, m - 1, target)
             else:
-                return binarySearch(middle+1, right, target)
-
-        for i in range(n):
-            index = binarySearch(0, maxLen-1, nums[i])
-            if index == maxLen:
-                dp[maxLen] = nums[i]
-                maxLen += 1
+                return binary_search(m + 1, r, target)
+        
+        for num in nums:
+            l = 0
+            r = len(dp) - 1
+            i = binary_search(l, r, num)
+            if i == len(dp):
+                dp.append(num)
             else:
-                dp[index] = nums[i]
-        return maxLen
+                dp[i] = num
+        return len(dp)
 
 
 # Time Complexity : O(N**2)

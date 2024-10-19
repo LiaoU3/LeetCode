@@ -25,3 +25,15 @@ class Solution:
             return self.lowestCommonAncestor(root.rught, p, q)
         else:
             return root
+
+class Solution:
+    def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
+
+        def traverse(node):
+            if p.val >= node.val >= q.val or p.val <= node.val <= q.val:
+                return node
+            elif p.val > node.val and q.val > node.val:
+                return traverse(node.right)
+            else:
+                return traverse(node.left)
+        return traverse(root)

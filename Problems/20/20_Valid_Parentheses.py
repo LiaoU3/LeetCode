@@ -1,5 +1,29 @@
 class Solution:
     def isValid(self, s: str) -> bool:
+        parentheses = {
+            "}": "{",
+            "]": "[",
+            ")": "(",
+            }
+        stack = []
+        for c in s:
+            if stack:
+                if c in parentheses:
+                    if stack[-1] != parentheses[c]:
+                        return False
+                    else:
+                        stack.pop()
+                else:
+                    stack.append(c)
+            else:
+                if c in parentheses:
+                    return False
+                else:
+                    stack.append(c)
+        return True if not stack else False
+
+class Solution:
+    def isValid(self, s: str) -> bool:
         stack = []
         for c in s:
             if stack:

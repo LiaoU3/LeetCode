@@ -114,3 +114,26 @@ class Solution:
                 dfs(r, c)
                 max_island = max(max_island, self.curr_area)
         return max_island
+
+class Solution:
+    def maxAreaOfIsland(self, grid: List[List[int]]) -> int:
+        directions = ((0, 1), (1, 0), (-1, 0), (0, -1))
+        ROW = len(grid)
+        COL = len(grid[0])
+        def dfs(r, c):
+            # Check if it is in boundary
+            if not(0 <= r < ROW and 0 <= c < COL):
+                return 0
+            # Check if it is 1
+            if grid[r][c] == 0:
+                return 0
+            grid[r][c] = 0
+            cnt = 1
+            for dr, dc in directions:
+                cnt += dfs(r + dr, c + dc)
+            return cnt
+        res = 0
+        for r in range(ROW):
+            for c in range(COL):
+                res = max(res, dfs(r, c))
+        return res

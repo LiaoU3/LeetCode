@@ -1,3 +1,21 @@
+# Two pointer solution O(n)
+class Solution:
+    def canCompleteCircuit(self, gas: List[int], cost: List[int]) -> int:
+        diff = [g - c for g, c in zip(gas, cost)]
+        if sum(diff) < 0:
+            return -1
+        start = len(gas) - 1
+        end = 0
+        tank = diff[start]
+        while start > end:
+            if tank < 0:
+                start -= 1
+                tank += diff[start]
+            else:
+                tank += diff[end]
+                end += 1
+        return start
+
 class Solution:
     def canCompleteCircuit(self, gas: List[int], cost: List[int]) -> int:
         if sum(gas) < sum(cost):

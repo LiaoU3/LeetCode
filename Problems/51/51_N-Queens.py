@@ -1,5 +1,42 @@
 from typing import List
 
+class Solution:
+    def solveNQueens(self, n: int) -> List[List[str]]:
+        used_rows = set()  # r
+        used_cols = set()  # c
+        used_main_diagonal = set()  # r - c 
+        used_anti_diagonal = set()  # r + c
+
+        def coord2board(coord):
+            board = [["." for _ in range(n)] for _ in range(n)]
+            for r, c in coord:
+                board[r][c] = "Q"
+            for r in range(n):
+                board[r] = "".join(board[r])
+            return board
+
+        res = []
+        def backtrack(curr):
+            if len(curr) == n:
+                res.append(coord2board(curr))
+                return
+            r = len(curr)
+            for c in range(n):
+                if c in used_cols or (r - c) in used_main_diagonal or (r + c) in used_anti_diagonal:
+                    continue
+                used_cols.add(c)
+                used_main_diagonal.add(r - c)
+                used_anti_diagonal.add(r + c)
+                curr.append((r, c))
+                backtrack(curr)
+                used_cols.remove(c)
+                used_main_diagonal.remove(r - c)
+                used_anti_diagonal.remove(r + c)
+                curr.pop()        
+        backtrack([])
+
+        return res
+
 # Faster
 class Solution:
     def solveNQueens(self, n: int) -> List[List[str]]:

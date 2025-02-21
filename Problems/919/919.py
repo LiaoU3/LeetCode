@@ -8,6 +8,23 @@ class Interval(object):
 
 class Solution:
     def minMeetingRooms(self, intervals: List[Interval]) -> int:
+        if len(intervals) == 0:
+            return 0
+        intervals.sort(key=lambda x: (x.start, x.end))
+        days = [0]
+
+        for interval in intervals:
+            start = interval.start
+            end = interval.end
+            time = days[0]
+            if time <= start:
+                heappop(days)
+            heappush(days, end)
+                
+        return len(days)
+
+class Solution:
+    def minMeetingRooms(self, intervals: List[Interval]) -> int:
         if not intervals:
             return 0
         days = [-1]

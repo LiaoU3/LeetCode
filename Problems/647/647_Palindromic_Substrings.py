@@ -1,6 +1,22 @@
 class Solution:
     def countSubstrings(self, s: str) -> int:
 
+        def check_pal(l, r):
+            if l < 0 or len(s) - 1 < r:
+                return 0
+            if s[l] != s[r]:
+                return 0
+            return 1 + check_pal(l - 1, r + 1)
+        
+        res = 0
+        for i in range(len(s)):
+            res += check_pal(i, i)
+            res += check_pal(i, i + 1)
+        return res
+
+class Solution:
+    def countSubstrings(self, s: str) -> int:
+
         def count_palindrome(left, right):
             cnt = 0
             while left>=0 and right<len(s) and s[left]==s[right]:

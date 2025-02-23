@@ -45,16 +45,17 @@ class Solution:
                 res = max(res, union(num - 1, num))
         return res
 
-# class Solution:
-#     def longestConsecutive(self, nums: List[int]) -> int:
-#         numsSet = set(nums)
-#         longest = 1
-#         for num in numsSet:
-#             # which means it's the start of the sequence
-#             if num-1 not in numsSet:
-#                 length = 1
-#                 while num+1 in numsSet:
-#                     length += 1
-#                     longest = max(longest, length)
-#                     num += 1
-#         return longest if nums else 0
+class Solution:
+    def longestConsecutive(self, nums: List[int]) -> int:
+        num_set = set(nums)
+
+        res = 0
+        for num in num_set:
+            if num - 1 in num_set:
+                continue
+            length = 1
+            while num + 1 in num_set:
+                num += 1
+                length += 1
+            res = max(res, length)
+        return res

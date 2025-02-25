@@ -1,3 +1,19 @@
+class Solution:
+    def characterReplacement(self, s: str, k: int) -> int:
+        table = [0] * 26
+        l = r = 0
+        res = 0
+        for r in range(len(s)):
+            table[ord(s[r]) - ord("A")] += 1
+            while r - l + 1 - max(table) > k and l < r:
+                table[ord(s[l]) - ord("A")] -= 1
+                l += 1
+            res = max(res, r - l + 1)
+
+        return res
+            
+
+
 # Cleaner solution
 class Solution:
     def characterReplacement(self, s: str, k: int) -> int:
@@ -49,4 +65,8 @@ class Solution:
 #                 table[ord(s[l])-ord('A')]-= 1
 #                 l += 1
 #             maxLen = max(maxLen, r-l+1)
-#         return maxLen                
+#         return maxLen
+
+
+res = Solution()
+print(res.characterReplacement("AABABBA", 1))

@@ -1,3 +1,18 @@
+# Cleaener and faster solution
+# O(n*log(n))
+class Solution:
+    def eraseOverlapIntervals(self, intervals: List[List[int]]) -> int:
+        intervals.sort()
+        prev = -float("Inf")
+        res = 0
+        for start, end in intervals:
+            if start < prev:
+                prev = min(prev, end)
+                res += 1
+            else:
+                prev = end
+        return res
+
 class Solution:
     def eraseOverlapIntervals(self, intervals: List[List[int]]) -> int:
         intervals.sort()

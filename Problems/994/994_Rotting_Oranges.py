@@ -1,6 +1,43 @@
 from typing import List
 from collections import deque
 
+# Early return solution
+class Solution:
+    def orangesRotting(self, grid: List[List[int]]) -> int:
+        ROW = len(grid)
+        COL = len(grid[0])
+
+        fresh_cnt = 0
+        q = deque([])
+        for r in range(ROW):
+            for c in range(COL):
+                if grid[r][c] == 2:
+                    q.append((r, c))
+                elif grid[r][c] == 1:
+                    fresh_cnt += 1
+
+        # Early return 0 if there is no fresh orange in the beginning
+        if fresh_cnt == 0:
+            return 0
+
+        res = 0
+        while q:
+            length = len(q)
+            res += 1
+            for _ in range(length):
+                r, c = q.popleft()
+                for dr, dc in ((0, 1), (1, 0), (0, -1), (-1, 0)):
+                    nr = r + dr
+                    nc = c + dc
+                    if 0 <= nr < ROW and 0 <= nc < COL and grid[nr][nc] == 1:
+                        fresh_cnt -= 1
+                        grid[nr][nc] = 2
+                        q.append((nr, nc))
+                        # Early return if there is no fresh orange
+                        if fresh_cnt == 0:
+                            return res
+        return -1
+
 # cleaner solution
 class Solution:
     def orangesRotting(self, grid: List[List[int]]) -> int:

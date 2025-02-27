@@ -1,28 +1,32 @@
 from typing import List
 
 
-# DFS with dp to store the previous best value
+# DFS with memory to store the previous best value
 class Solution:
     def longestIncreasingPath(self, matrix: List[List[int]]) -> int:
-        m = len(matrix)  # rows
-        n = len(matrix[0])  # cols
-        dp = [[0 for _ in range(n)] for _ in range(m)]  # 0 stands for not visited
-        directions = ((1, 0), (-1, 0), (0, 1), (0, -1))
+        ROW = len(matrix)
+        COL = len(matrix[0])
+        lengths = [[0] * COL for _ in range(ROW)]
+
         def dfs(r, c):
-            if dp[r][c]:  # previous best result
-                return dp[r][c]
-            best = 0
-            for dir_r, dir_c in directions:
-                next_r = r + dir_r
-                next_c = c + dir_c
-                if 0 <= next_r < m and 0 <= next_c < n and matrix[r][c] < matrix[next_r][next_c]:
-                    best = max(best, dfs(next_r, next_c))
-            dp[r][c] = best + 1
-            return dp[r][c]
+            if lengths[r][c] != 0:
+                return lengths[r][c]
+
+            max_length = 0
+            for dr, dc in ((0, 1), (1, 0), (0, -1), (-1, 0)):
+                nr = r + dr
+                nc = c + dc
+                if 0 <= nr < ROW and 0 <= nc < COL and matrix[nr][nc] > matrix[r][c]:
+                    max_length = max(max_length, dfs(nr, nc))
+            max_length += 1
+            lengths[r][c] = max_length
+            return max_length
+        
         res = 0
-        for r in range(m):
-            for c in range(n):
+        for r in range(ROW):
+            for c in range(COL):
                 res = max(res, dfs(r, c))
+        
         return res
 
 

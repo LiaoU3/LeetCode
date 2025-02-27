@@ -1,6 +1,20 @@
 # Time Complexity O(N)
 class Solution:
     def countBits(self, n: int) -> List[int]:
+        # 1
+        # 1, 2
+        # 1, 2, 2, 3
+        # 1, 2, 2, 3, 2, 3, 3, 4
+        curr = [0]
+
+        while len(curr) < n + 1:
+            extend = [x + 1 for x in curr]
+            curr.extend(extend)
+        
+        return curr[:n + 1]
+
+class Solution:
+    def countBits(self, n: int) -> List[int]:
         # 0:      0,
         # 1:      1,
         # 2 - 3:  1, 2,

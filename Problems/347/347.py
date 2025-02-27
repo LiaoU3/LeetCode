@@ -40,3 +40,24 @@ class Solution:
         for _ in range(k):
             res.append(heappop(hp)[1])
         return res
+
+# O(n log(n))
+class Solution:
+    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
+        
+        freq = defaultdict(int)
+
+        # O(n)
+        for num in nums:
+            freq[num] += 1
+        
+        # O(n log(n))
+        hp = []
+        for num in freq:
+            heappush(hp, (-freq[num], num))
+        
+        # O(k log(n))
+        res = []
+        for _ in range(k):
+            res.append(heappop(hp)[1])
+        return res

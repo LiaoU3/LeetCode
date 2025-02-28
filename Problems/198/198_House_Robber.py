@@ -1,5 +1,14 @@
 class Solution:
     def rob(self, nums: List[int]) -> int:
+        nums = [0, 0, 0] + nums
+
+        for i in range(3, len(nums)):
+            nums[i] += max(nums[i - 2], nums[i - 3])
+        
+        return max(nums[-2:])
+
+class Solution:
+    def rob(self, nums: List[int]) -> int:
         m = len(nums)
         if m == 1:
             return nums[0]

@@ -1,4 +1,29 @@
 from collections import defaultdict
+
+class Solution:
+    def isValidSudoku(self, board: List[List[str]]) -> bool:
+        
+        seen_row = defaultdict(set)  # row
+        seen_col = defaultdict(set)  # col
+        seen_box = defaultdict(set)  # (row // 3, col // 3)
+
+        for r in range(9):
+            for c in range(9):
+                if board[r][c] == ".":
+                    continue
+                if board[r][c] in seen_row[r]:
+                    return False
+                seen_row[r].add(board[r][c])
+
+                if board[r][c] in seen_col[c]:
+                    return False
+                seen_col[c].add(board[r][c])
+
+                if board[r][c] in seen_box[(r // 3, c //3)]:
+                    return False
+                seen_box[(r // 3, c //3)].add(board[r][c])
+        return True
+
 class Solution:
     def isValidSudoku(self, board: list[list[str]]) -> bool:
         row_seen = defaultdict(set)

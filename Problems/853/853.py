@@ -1,6 +1,20 @@
 from typing import List
 import heapq
 
+class Solution:
+    def carFleet(self, target: int, position: List[int], speed: List[int]) -> int:
+        if target == 0:
+            return 1
+
+        time = [(target - p) / s for p, s in sorted(zip(position, speed))]
+        print(time)
+        # Monotonic increasiong
+        stack = []
+        for i in range(len(time) - 1, -1, -1):
+            if not stack or time[i] > stack[-1]:
+                stack.append(time[i])
+        return len(stack)
+
 # Use stack
 class Solution:
     def carFleet(self, target: int, position: List[int], speed: List[int]) -> int:

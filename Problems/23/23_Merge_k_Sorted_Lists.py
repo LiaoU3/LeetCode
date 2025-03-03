@@ -78,6 +78,29 @@ class Solution:
 
         return merge(0, len(lists)-1)
 
+# Slow
+class Solution:
+    def mergeKLists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
+        if not lists:
+            return None
+        def merge2lists(l1, l2):
+            dummy = curr = ListNode()
+            while l1 or l2:
+                v1 = l1.val if l1 else float("Inf")
+                v2 = l2.val if l2 else float("Inf")
+                if v1 < v2:
+                    curr.next = l1
+                    l1 = l1.next
+                else:
+                    curr.next = l2
+                    l2 = l2.next
+                curr = curr.next
+            return dummy.next
+        
+        res = lists[0]
+        for i in range(1, len(lists)):
+            res = merge2lists(res, lists[i])
+        return res
 
 # Slow
 class Solution:

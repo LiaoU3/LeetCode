@@ -13,6 +13,25 @@ from typing import List
 #     def __init__(self, val=0, next=None):
 #         self.val = val
 #         self.next = next
+
+# Create a heap first to accelerate
+class Solution:
+    def mergeKLists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
+        hp = []
+        for ls in lists:
+            while ls:
+                heappush(hp, ls.val)
+                ls = ls.next
+        
+        dummy = curr = ListNode()
+
+        while hp:
+            node = ListNode(heappop(hp))
+            curr.next = node
+            curr = curr.next
+        
+        return dummy.next
+
 class Solution:
     def mergeKLists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
         def merge(left, right):

@@ -1,15 +1,15 @@
 class Solution:
     def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
-        hash_map = defaultdict(list) # key: tuple, value: list of str
+        
+        seen = defaultdict(list)
+
         for s in strs:
-            cnt = [0] * 26
+            curr = [0] * 26
             for c in s:
-                cnt[ord(c) - ord("a")] += 1
-            hash_map[tuple(cnt)].append(s)
-        res = []
-        for key in hash_map:
-            res.append(hash_map[key])
-        return res
+                curr[ord(c) - ord("a")] += 1
+            seen[tuple(curr)].append(s)
+
+        return list(seen.values())
 
 class Solution:
     def groupAnagrams(self, strs: List[str]) -> List[List[str]]:

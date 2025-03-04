@@ -16,7 +16,7 @@ class Solution:
         res = set()
         directions = ((0, 1), (1, 0), (-1, 0), (0, -1))
         def dfs(r, c, curr, word):
-            # Out of bounday
+            # Out of boundry
             if not(0 <= r < ROW and 0 <= c < COL):
                 return
             # Used in current

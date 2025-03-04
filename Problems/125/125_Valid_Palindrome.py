@@ -1,5 +1,21 @@
 class Solution:
     def isPalindrome(self, s: str) -> bool:
+        
+        def check(l, r):
+            if l >= r:
+                return True
+            if not s[l].isalnum():
+                return check(l + 1, r)
+            if not s[r].isalnum():
+                return check(l, r - 1)
+            if s[l].lower() != s[r].lower():
+                return False
+            return check(l + 1, r - 1)
+
+        return check(0, len(s) - 1)
+
+class Solution:
+    def isPalindrome(self, s: str) -> bool:
         l = 0
         r = len(s) - 1
         while l <= r:

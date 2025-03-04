@@ -2,6 +2,25 @@ from typing import List
 
 class Solution:
     def mergeTriplets(self, triplets: List[List[int]], target: List[int]) -> bool:
+        curr = [0, 0, 0]
+        
+        def is_greater(t):
+            for n1, n2 in zip(t, target):
+                if n1 > n2:
+                    return True
+            return False
+
+        for trip in triplets:
+            if is_greater(trip):
+                continue
+            for i in range(3):
+                curr[i] = max(curr[i], trip[i])
+            if curr == target:
+                return True
+        return False
+
+class Solution:
+    def mergeTriplets(self, triplets: List[List[int]], target: List[int]) -> bool:
         triplets.sort()
 
         def check_exceed(triplet):

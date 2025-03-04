@@ -1,3 +1,23 @@
+# DP solution but faster
+class Solution:
+    def wordBreak(self, s: str, wordDict: List[str]) -> bool:
+        dp = [False] * (len(s) + 1)
+        dp[0] = True
+        lengths = []
+        for word in wordDict:
+            lengths.append(len(word))
+        lengths.sort()
+        wordSet = set(wordDict)
+
+        for i in range(1, len(s) + 1):
+            for length in lengths:
+                if i - length < 0:
+                    break
+                if dp[i - length] and s[i - length: i] in wordSet:
+                    dp[i] = True
+                    break
+        return dp[-1]
+
 # DP solution
 class Solution:
     def wordBreak(self, s: str, wordDict: List[str]) -> bool:

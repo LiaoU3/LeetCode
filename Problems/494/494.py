@@ -1,3 +1,5 @@
+from typing import List
+
 class Solution:
     def findTargetSumWays(self, nums: List[int], target: int) -> int:
         cache = {}
@@ -16,13 +18,18 @@ class Solution:
 # TLE
 # class Solution:
 #     def findTargetSumWays(self, nums: List[int], target: int) -> int:
-#         self.res = 0
-#         def find(i, total):
+        
+#         def backtrack(i, total):
 #             if i == len(nums):
 #                 if total == target:
-#                     self.res += 1
-#                 return
-#             find(i + 1, total + nums[i])
-#             find(i + 1, total - nums[i])
-#         find(0, 0)
-#         return self.res
+#                     return 1
+#                 else:
+#                     return 0
+#             return backtrack(i + 1, total + nums[i]) + backtrack(i + 1, total - nums[i])
+        
+#         return backtrack(0, 0)
+
+nums = [1,1,1,1,1]
+target = 3
+sol = Solution()
+print(sol.findTargetSumWays(nums, target))

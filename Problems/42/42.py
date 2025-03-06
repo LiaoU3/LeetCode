@@ -26,20 +26,18 @@ class Solution:
 # Strictly decreasin
 class Solution:
     def trap(self, height: List[int]) -> int:
-        # Strictly decreasing
-        stack = []  # (height, index)
+        stack = []  #  (h, i) strictly decreasing stack
+
         res = 0
         for i, h in enumerate(height):
+            floor = 0
             while stack and stack[-1][0] <= h:
                 left_h, left_i = stack.pop()
-                res += (i - left_i - 1) * (left_h - base)
-                base = left_h
-            else:
-                if stack:
-                    res += (i - stack[-1][1] - 1) * (h - base)
-                    base = h
+                res += (left_h - floor) * (i - left_i - 1)
+                floor = left_h
+            if stack:
+                res += (h - floor) * (i - stack[-1][1] - 1)
             stack.append((h, i))
-            base = h
         return res
 
 

@@ -1,62 +1,68 @@
 from collections import defaultdict
 
-
+# O(S + L)
 class Solution:
     def minWindow(self, s: str, t: str) -> str:
         if len(t) > len(s):
             return ""
-        
+
         target = defaultdict(int)
         for c in t:
             target[c] += 1
-        
-        def satisfied():
-            for c in target:
-                if target[c] > 0:
-                    return False
-            return True
-        
+
+        window = defaultdict(int)
+
+        need = len(t)
+        have = 0
+
         res = ""
         l = 0
-        
         for r in range(len(s)):
-            if s[r] in target:
-                target[s[r]] -= 1
-            if satisfied():
-                while l < r and s[l] not in target:
-                    l += 1
-                if not res or len(res) > r - l + 1:
-                    res = s[l:r + 1]
+            window[s[r]] += 1
+            if window[s[r]] == target[s[r]]:
+                have += 1
+            while have == need:
+                if not res or r - l + 1 < len(res):
+                    res = s[l : r + 1]
+                window[s[l]] -= 1
+                if window[s[l]] < target[s[l]]:
+                    have -= 1
                 l += 1
+        
         return res
 
 
+# O (S*L)
+class Solution:
+    def minWindow(self, s: str, t: str) -> str:
+        if len(t) > len(s):
+            return ""
 
-# Not fast enough
-# class Solution:
-#     def minWindow(self, s: str, t: str) -> str:
-#         if len(t) > len(s):
-#             return ""
-#         target = defaultdict(int)
-#         for c in t:
-#             target[c] += 1
-#         def satisfied():
-#             for c in target:
-#                 if target[c] > 0:
-#                     return False
-#             return True
-#         res = ""
-#         l = 0
-#         for r in range(len(s)):
-#             if s[r] in target:
-#                 target[s[r]] -= 1
-#                 while satisfied():
-#                     if not res or len(res) > r - l + 1:
-#                         res = s[l:r + 1]
-#                     if s[l] in target:
-#                         target[s[l]] += 1
-#                     l += 1
-#         return res
+        target = {}
+        for c in t:
+            if c not in target:
+                target[c] = 0
+            target[c] += 1
+
+        window = defaultdict(int)
+
+        def is_legal():
+            for c in target:
+                if target[c] > window[c]:
+                    return False
+            return True
+
+        res = None
+        l = 0
+        for r in range(len(s)):
+            window[s[r]] += 1
+            while is_legal():
+                if res is None or r - l + 1 < len(res):
+                    res = s[l : r + 1]
+                window[s[l]] -= 1
+                l += 1
+
+        return res if res is not None else ""
 
 sol = Solution()
 s = "ADOBECODEBANC"

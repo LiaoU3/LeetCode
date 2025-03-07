@@ -55,6 +55,17 @@ class Solution:
 # Time Complexity : O(N**2)
 class Solution:
     def lengthOfLIS(self, nums: List[int]) -> int:
+        dp = [1 for _ in range(len(nums))]
+        for i in range(1, len(nums)):
+            for j in range(i):
+                if nums[j]<nums[i]:
+                    dp[i] = max(dp[j] + 1, dp[i])
+        return max(dp)
+
+
+# TLE O(N**2)
+class Solution:
+    def lengthOfLIS(self, nums: List[int]) -> int:
         maxLen = 0
         n = len(nums)
         dp = [0] * n
@@ -69,33 +80,22 @@ class Solution:
         print(dp)
         return maxLen
 
-# class Solution:
-#     def lengthOfLIS(self, nums: List[int]) -> int:
-#         maxLen = 1
-#         n = len(nums)
-#         dp = [0] * n
-#         dp[0] = nums[0]
-        
-#         for i in range(1, n):
-#             for j in range(maxLen):
-#                 if nums[i] <= dp[j]:
-#                     dp[j] = nums[i]
-#                     break
-#             else:
-#                 dp[maxLen] = nums[i]
-#                 maxLen += 1
-#         print(dp)
-#         return maxLen
 
-# Time Complexity : O(N**2)
+# TLE O(N**2)
 class Solution:
     def lengthOfLIS(self, nums: List[int]) -> int:
-        dp = [1 for _ in range(len(nums))]
-        for i in range(1, len(nums)):
-            for j in range(i):
-                if nums[j]<nums[i]:
-                    dp[i] = max(dp[j] + 1, dp[i])
-        return max(dp)
+        
+        def backtrack(i, num):
+            if i == len(nums):
+                return 0
+            # without nums[i + 1]
+            res = backtrack(i + 1, num)
+            # with nums[i + 1]
+            if nums[i] > num:
+                res = max(res, backtrack(i + 1, nums[i]) + 1)
+            return res
+        return backtrack(0, -float("Inf"))
+
 
 def main():
     sol = Solution()

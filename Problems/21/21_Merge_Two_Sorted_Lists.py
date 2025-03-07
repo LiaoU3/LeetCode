@@ -5,17 +5,35 @@ from typing import Optional
 # Recurrsion
 class Solution:
     def mergeTwoLists(self, list1: Optional[ListNode], list2: Optional[ListNode]) -> Optional[ListNode]:
-        if not list1:
+        if list1 is None:
             return list2
-        if not list2:
+        if list2 is None:
             return list1
+        
         if list1.val < list2.val:
             res = list1
             res.next = self.mergeTwoLists(list1.next, list2)
         else:
             res = list2
             res.next = self.mergeTwoLists(list1, list2.next)
+
         return res
+
+
+class Solution:
+    def mergeTwoLists(self, list1: Optional[ListNode], list2: Optional[ListNode]) -> Optional[ListNode]:
+        curr = dummy = ListNode()
+        while list1 or list2:
+            v1 = list1.val if list1 else float("Inf")
+            v2 = list2.val if list2 else float("Inf")
+            if v1 < v2:
+                curr.next = list1
+                list1 = list1.next
+            else:
+                curr.next = list2
+                list2 = list2.next
+            curr = curr.next
+        return dummy.next
 
 
 # class Solution:

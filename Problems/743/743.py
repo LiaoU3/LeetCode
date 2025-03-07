@@ -16,7 +16,7 @@ class Solution:
             if source in seen:
                 continue
             seen.add(source)
-            total_time = max(total_time, time)
+            total_time = time
             for target, target_time in network[source]:
                 if target in seen:
                     continue

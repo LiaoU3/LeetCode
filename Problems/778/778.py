@@ -1,6 +1,21 @@
 from typing import List
 from heapq import heappush, heappop
 
+class Solution:
+    def swimInWater(self, grid: List[List[int]]) -> int:
+        N = len(grid)
+        hp = [(grid[0][0], 0, 0)]  # time, row, col
+        seen = set([(0, 0)])
+        while hp:
+            time, r, c = heappop(hp)
+            if r == c == N - 1:
+                return time
+            for dr, dc in ((0, 1), (1, 0), (-1, 0), (0, -1)):
+                nr = r + dr
+                nc = c + dc
+                if 0 <= nr < N and 0 <= nc < N and (nr, nc) not in seen:
+                    heappush(hp,(max(grid[nr][nc], time), nr, nc))
+                    seen.add((nr, nc))
 
 class Solution:
     def swimInWater(self, grid: List[List[int]]) -> int:
@@ -26,5 +41,5 @@ class Solution:
 
 
 sol = Solution()
-grid = [[0,2],[1,3]]
+grid = [[0,1,2,3,4],[24,23,22,21,5],[12,13,14,15,16],[11,17,18,19,20],[10,9,8,7,6]]
 print(sol.swimInWater(grid))

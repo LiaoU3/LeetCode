@@ -30,3 +30,26 @@ class Solution:
             res.append(l2r[i] * r2l[i])
         res.append(l2r[-1])
         return res
+
+# Time complexity O(N), Space Complexity O(N)
+class Solution:
+    def productExceptSelf(self, nums: List[int]) -> List[int]:
+        res = [0] * len(nums)
+        product = 1
+        zero_index = -1
+        for i, num in enumerate(nums):
+            if num != 0:
+                product *= num
+            else:
+                if zero_index != -1:
+                    return res
+                else:
+                    zero_index = i
+
+        if zero_index == -1:
+            for i in range(len(nums)):
+                res[i] = product // nums[i]
+        else:
+            res[zero_index] = product
+
+        return res

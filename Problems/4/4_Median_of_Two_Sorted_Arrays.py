@@ -1,3 +1,5 @@
+from typing import List
+
 ### Finally! I understood how to use binary search on this !!!!!!
 class Solution:
     def findMedianSortedArrays(self, nums1, nums2) -> float:
@@ -27,6 +29,26 @@ class Solution:
             else:
                 left1 = half1 + 1
 
+
+# O(n + m)
+class Solution:
+    def findMedianSortedArrays(self, nums1: List[int], nums2: List[int]) -> float:
+        i = j = 0
+        m1 = m2 = 0
+        for _ in range((len(nums1) + len(nums2)) // 2 + 1):
+            m2 = m1
+            v1 = nums1[i] if i < len(nums1) else float("Inf")
+            v2 = nums2[j] if j < len(nums2) else float("Inf")
+            if v1 < v2:
+                m1 = nums1[i]
+                i += 1
+            else:
+                m1 = nums2[j]
+                j += 1
+        if (len(nums1) + len(nums2)) % 2:
+            return float(m1)
+        else:
+            return (m1 + m2) / 2
 
 solution = Solution()
 nums1 = [1,3]

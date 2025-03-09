@@ -1,3 +1,18 @@
+class Solution:
+    def jump(self, nums: List[int]) -> int:
+        rnd = 0
+        curr_max = 0
+        next_max = 0
+        for i in range(len(nums) - 1):
+            j = i + nums[i]
+            next_max = max(next_max, j)
+            if i == curr_max:
+                rnd += 1
+                curr_max = next_max
+                if curr_max >= len(nums) - 1:
+                    break
+        return rnd
+
 
 class Solution:
     def jump(self, nums: List[int]) -> int:

@@ -3,11 +3,11 @@ from typing import List
 # Instead of moving from the start, we move the goal back to the start
 class Solution:
     def canJump(self, nums: List[int]) -> bool:
-        goal = len(nums) - 1
-        for i in range(len(nums) - 1, -1, -1):
-            if i + nums[i] >= goal:
-                goal = i
-        return True if goal == 0 else False
+        end = len(nums) - 1
+        for i in range(len(nums) - 2, -1, -1):
+            if i + nums[i] >= end:
+                end = i
+        return end == 0
 
 # Still not fast enough, but this is the improvement of the next solution
 # class Solution:

@@ -1,3 +1,19 @@
+class Solution:
+    def lastStoneWeight(self, stones: List[int]) -> int:
+        hp = []
+        for stone in stones:
+            heappush(hp, -stone)
+
+        while len(hp) > 1:
+            s1 = -heappop(hp)
+            s2 = -heappop(hp)
+            # Make usre s1 >= s2
+            if s1 < s2:
+                s1, s2 = s2, s1
+            if s1 - s2:
+                heappush(hp, s2 - s1)
+        return -heappop(hp) if hp else 0
+
 # it can be simnplified because on top of the heap will always be the biggest number
 class Solution:
     def lastStoneWeight(self, stones: List[int]) -> int:

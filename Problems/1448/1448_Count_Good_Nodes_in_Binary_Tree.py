@@ -5,6 +5,21 @@
 #         self.left = left
 #         self.right = right
 
+class Solution:
+    def goodNodes(self, root: TreeNode) -> int:
+        
+        def dfs(node, max_parent):
+            if node is None:
+                return 0
+            cnt = 0
+            if node.val >= max_parent:
+                cnt += 1
+            max_parent = max(max_parent, node.val)
+            cnt += dfs(node.left, max_parent)
+            cnt += dfs(node.right, max_parent)
+            return cnt
+        return dfs(root, root.val)
+
 
 class Solution:
     def goodNodes(self, root: TreeNode) -> int:

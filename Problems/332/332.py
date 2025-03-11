@@ -1,4 +1,21 @@
 class Solution:
+    def findItinerary(self, tickets: List[List[str]]) -> List[str]:
+        adj = defaultdict(list)
+        for s, t in tickets:
+            heappush(adj[s], t)
+
+        res = []
+        def dfs(curr):
+            while adj[curr]:
+                nxt = heappop(adj[curr])
+                dfs(nxt)
+            res.append(curr)
+
+        dfs("JFK")
+        return res[::-1]
+
+
+class Solution:
     def findItinerary(self, tickets: List[List[str]]) -> List[str]:        
         directions = defaultdict(list)
         tickets.sort(reverse=True)

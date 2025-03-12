@@ -6,27 +6,25 @@ class Solution:
     def longestIncreasingPath(self, matrix: List[List[int]]) -> int:
         ROW = len(matrix)
         COL = len(matrix[0])
-        lengths = [[0] * COL for _ in range(ROW)]
 
+        cache = {}  # key: (r, c) -> val: max_length
         def dfs(r, c):
-            if lengths[r][c] != 0:
-                return lengths[r][c]
+            if (r, c) in cache:
+                return cache[(r, c)]
 
-            max_length = 0
-            for dr, dc in ((0, 1), (1, 0), (0, -1), (-1, 0)):
+            max_len = 0
+            for dr, dc in ((0, 1), (1, 0), (-1, 0), (0, -1)):
                 nr = r + dr
                 nc = c + dc
-                if 0 <= nr < ROW and 0 <= nc < COL and matrix[nr][nc] > matrix[r][c]:
-                    max_length = max(max_length, dfs(nr, nc))
-            max_length += 1
-            lengths[r][c] = max_length
-            return max_length
-        
+                if 0 <= nr < ROW and 0 <= nc < COL and matrix[r][c] < matrix[nr][nc]:
+                    max_len = max(max_len, dfs(nr, nc))
+            cache[(r, c)] = 1 + max_len
+            return cache[(r, c)]
+
         res = 0
         for r in range(ROW):
             for c in range(COL):
                 res = max(res, dfs(r, c))
-        
         return res
 
 

@@ -1,6 +1,30 @@
 from collections import defaultdict
 from typing import List
 
+# Cleanest solution
+class Solution:
+    def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
+        adj = defaultdict(list)
+        for c1, c2 in prerequisites:
+            adj[c1].append(c2)
+
+        seen = {}  # key: course, val: True -> currently visited, False -> Visited in another round.
+        res = []
+        def dfs(course):
+            if course in seen:
+                return seen[course]
+            seen[course] = True
+            for nxt in adj[course]:
+                if dfs(nxt):
+                    return True
+            seen[course] = False
+            res.append(course)
+            return False
+
+        for i in range(numCourses):
+            if dfs(i):
+                return []
+        return res
 
 # Cleaner solution
 class Solution:

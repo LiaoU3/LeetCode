@@ -15,10 +15,7 @@ class Solution:
             return None
         if head in self.map:
             return self.map[head]
-
         self.map[head] = Node(x=head.val)
-        nxt = self.copyRandomList(head.next)
-        random = self.copyRandomList(head.random)
-        self.map[head].next = nxt
-        self.map[head].random = random
+        self.map[head].next = self.copyRandomList(head.next)
+        self.map[head].random = self.copyRandomList(head.random)
         return self.map[head]

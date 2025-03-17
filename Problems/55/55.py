@@ -10,22 +10,26 @@ class Solution:
         return end == 0
 
 # Still not fast enough, but this is the improvement of the next solution
-# class Solution:
-#     def canJump(self, nums: List[int]) -> bool:
-        
-#         def greedy(i) -> bool:
-#             if i >= len(nums) - 1:
-#                 return True
-#             if nums[i] == -1:
-#                 return False
-#             steps = nums[i]
-#             nums[i] = -1
-#             for step in range(steps, 0, -1):
-#                 if greedy(i + step):
-#                     return True
-#             return False
-        
-#         return greedy(0)
+# O(n ^ 2)
+class Solution:
+    def canJump(self, nums: List[int]) -> bool:
+        cache = {}  # not in: not visted, False: Fail, True: Success
+        def backtrack(i):
+            if i in cache:
+                return cache[i]
+            if i >= len(nums) - 1:
+                return True
+            for j in range(i + nums[i], i, -1):
+                if j in cache:
+                    return cache[j]
+                if backtrack(j):
+                    cache[j] = True
+                    return True
+                else:
+                    cache[j] = False
+            return False
+        return backtrack(0)
+
 
 # Not Fast enough
 # class Solution:

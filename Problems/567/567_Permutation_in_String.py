@@ -1,5 +1,44 @@
 class Solution:
     def checkInclusion(self, s1: str, s2: str) -> bool:
+        if len(s1) > len(s2):
+            return False
+
+        target = [0] * 26
+        for c in s1:
+            target[ord(c) - ord('a')] += 1
+
+        curr = [0] * 26
+        for c in s2[:len(s1)]:
+            curr[ord(c) - ord('a')] += 1
+
+        same = 0
+        for cnt1, cnt2 in zip(target, curr):
+            if cnt1 == cnt2:
+                same += 1
+
+        if same == 26:
+            return True
+
+        for i in range(len(s1), len(s2)):
+            r = ord(s2[i]) - ord('a')
+            curr[r] += 1
+            if curr[r] == target[r]:
+                same += 1
+            elif curr[r] - 1 == target[r]:
+                same -= 1
+
+            l = ord(s2[i - len(s1)]) - ord('a')
+            curr[l] -= 1
+            if curr[l] == target[l]:
+                same += 1
+            elif curr[l] + 1 == target[l]:
+                same -= 1
+            if same == 26:
+                return True
+        return False
+
+class Solution:
+    def checkInclusion(self, s1: str, s2: str) -> bool:
         if len(s1)>len(s2):
             return False
         window = len(s1)

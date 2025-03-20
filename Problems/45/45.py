@@ -13,6 +13,20 @@ class Solution:
                     break
         return rnd
 
+class Solution:
+    def jump(self, nums: List[int]) -> int:
+        if len(nums) == 1:
+            return 0
+        curr = farthest = 0
+        res = 0
+        for i, num in enumerate(nums):
+            farthest = max(farthest, i + num)
+            if i == curr:
+                res += 1
+                curr = farthest
+                if curr >= len(nums) - 1:
+                    return res
+
 
 class Solution:
     def jump(self, nums: List[int]) -> int:
@@ -43,6 +57,18 @@ class Solution:
             for j in range(1, nums[i] + 1):
                 q.append((i + j, step + 1))
         return -1
+
+# Slow O(N**2)
+class Solution:
+    def jump(self, nums: List[int]) -> int:
+        dp = [float("Inf")] * len(nums)
+        dp[-1] = 0
+        for i in range(len(nums) - 2, -1, -1):
+            min_step = float("Inf")
+            for j in range(i + 1, min(i + 1 + nums[i], len(nums))):
+                min_step = min(min_step, dp[j])
+            dp[i] = min_step + 1
+        return dp[0]
 
 # Slow O(N**2)
 class Solution:

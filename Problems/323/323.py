@@ -20,3 +20,36 @@ class Solution:
             cnt += 1
             dfs(i)
         return cnt
+
+
+class Solution:
+    def countComponents(self, n: int, edges: List[List[int]]) -> int:
+
+        parent = [i for i in range(n)]
+        rank = [1] * n
+
+        def find(node):
+            """Return the parent of the node and update the parent list"""
+            if parent[node] == node:
+                return node
+            parent[node] = find(parent[node])
+            return parent[node]        
+
+        def union(node1, node2):
+            """Union 2 nodes together"""
+            p1 = find(node1)
+            p2 = find(node2)
+            if p1 == p2:
+                return True
+            if rank[p1] < rank[p2]:
+                p1, p2 = p2, p1
+            parent[p2] = p1
+            rank[p1] += rank[p2]
+            return False
+
+        res = n
+        for node1, node2 in edges:
+            if not union(node1, node2):
+                res -= 1
+
+        return res

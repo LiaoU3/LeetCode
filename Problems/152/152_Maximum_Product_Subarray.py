@@ -1,5 +1,15 @@
 class Solution:
     def maxProduct(self, nums: List[int]) -> int:
+        res = -float("Inf")
+        max_prod = 1
+        min_prod = 1
+        for num in nums:
+            max_prod, min_prod = max(min_prod * num, max_prod * num, num), min(min_prod * num, max_prod * num, num)
+            res = max(res, max_prod)
+        return res
+
+class Solution:
+    def maxProduct(self, nums: List[int]) -> int:
         dp = [[0, 0] for _ in range(len(nums))]
         dp[0] = [nums[0], nums[0]]
         res = nums[0]

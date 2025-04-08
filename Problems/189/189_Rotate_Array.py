@@ -2,6 +2,29 @@ from typing import List
 
 class Solution:
     def rotate(self, nums: List[int], k: int) -> None:
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+        k %= len(nums)
+        if k == 0:
+            return
+        changed = 0
+        start_idx = 0
+        while changed < len(nums):
+            curr_idx = start_idx
+            prev_num = nums[curr_idx]
+            while True:
+                next_idx = (curr_idx + k) % len(nums)
+                prev_num, nums[next_idx] = nums[next_idx], prev_num
+                curr_idx = next_idx
+                changed += 1
+                if start_idx == curr_idx:
+                    break
+            start_idx += 1
+
+
+class Solution:
+    def rotate(self, nums: List[int], k: int) -> None:
 
         # great common divisor
         def gcd(m, n):

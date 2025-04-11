@@ -71,23 +71,26 @@ class Solution:
     def maxAreaOfIsland(self, grid: List[List[int]]) -> int:
         ROW = len(grid)
         COL = len(grid[0])
-        directions = ((0, 1), (1, 0), (0, -1), (-1, 0))
-        
+
         def dfs(r, c):
-            if not(ROW>r>=0 and COL>c>=0)or not grid[r][c]:
+            if not (0 <= r < ROW and 0 <= c < COL):
+                return 0
+            if grid[r][c] != 1:
                 return 0
             grid[r][c] = 0
-            total = 1
-            for dir in directions:
-                nr = r+dir[0]
-                nc = c+dir[1]
-                total += dfs(nr, nc)
-            return total
-        maxArea = 0
+            area = 1
+            for dr, dc in ((0, 1), (1, 0), (0, -1), (-1, 0)):
+                nr = r + dr
+                nc = c + dc
+                area += dfs(nr, nc)
+            return area
+
+        res = 0
         for r in range(ROW):
             for c in range(COL):
-                maxArea = max(maxArea, dfs(r, c))
-        return maxArea
+                res = max(res, dfs(r, c))
+
+        return res
 
 # dfs
 class Solution:

@@ -2,6 +2,26 @@ from heapq import heappush, heappop
 
 class Solution:
     def maxSlidingWindow(self, nums: List[int], k: int) -> List[int]:
+        
+        q = deque()  # (val, index)
+        for i in range(k):
+            while q and q[-1][0] < nums[i]:
+                q.pop()
+            q.append((nums[i], i))
+        res = [q[0][0]]
+        for i in range(k, len(nums)):
+            while q and q[-1][0] < nums[i]:
+                q.pop()
+            q.append((nums[i], i))
+            if q[0][1] <= i - k:
+                q.popleft()
+            res.append(q[0][0])
+
+        return res
+
+
+class Solution:
+    def maxSlidingWindow(self, nums: List[int], k: int) -> List[int]:
         res = []
 
         # Keep it monotonic decreasing by value

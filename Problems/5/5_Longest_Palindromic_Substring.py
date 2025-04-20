@@ -1,4 +1,27 @@
 class Solution:
+    def longestPalindrome(self, s: str) -> str:
+        res = ""
+
+        def get_longest_pal(l, r):
+            if l < 0 or len(s) <= r:
+                return ""
+            if s[l] != s[r]:
+                return ""
+            curr = s[l: r + 1]
+            nxt = get_longest_pal(l - 1, r + 1)
+            return nxt if len(nxt) > len(curr) else curr
+
+        for i in range(len(s)):
+            pal = get_longest_pal(i, i)
+            if len(pal) > len(res):
+                res = pal
+            pal = get_longest_pal(i, i + 1)
+            if len(pal) > len(res):
+                res = pal
+
+        return res
+
+class Solution:
 	def longestPalindrome(self, s):
 		maxLen=1
 		start=0

@@ -31,6 +31,37 @@ class Solution:
         
         return res
 
+class Solution:
+    def minWindow(self, s: str, t: str) -> str:
+        if len(t) > len(s):
+            return ""
+        
+        table = defaultdict(int)
+        for c in t:
+            table[c] += 1
+
+        target = len(table)        
+        curr = 0
+
+        res = ""
+        l = 0
+        for r in range(len(s)):
+            if s[r] in table:
+                table[s[r]] -= 1
+                if table[s[r]] == 0:
+                    curr += 1
+            while curr == target:
+                if res == "":
+                    res = s[l: r + 1]
+                elif r - l + 1 < len(res):
+                    res = s[l: r + 1]
+                if s[l] in table:
+                    table[s[l]] += 1
+                    if table[s[l]] == 1:
+                        curr -= 1
+                l += 1
+        return res
+
 
 # # O (S*L)
 # class Solution:

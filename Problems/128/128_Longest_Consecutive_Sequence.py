@@ -1,49 +1,41 @@
 # Union Find
 class Solution:
     def longestConsecutive(self, nums: List[int]) -> int:
-        if not nums:
+        if len(nums) == 0:
             return 0
-        parent = {}  # num: root
-        rank = {}  # num: length
-        res = 1
+        parent = {}  # key: num, val: parent of the num
+        rank = {}  # key: num, val: rank of the num
 
-        def find(num):
-            """find the root and update the root for all nodes in the path"""
-            if num == parent[num]:  # found root
-                return num
-            parent[num] = find(parent[num])  # update the root
-            return parent[num]
+        def find(node):
+            if node == parent[node]:
+                return node
+            parent[node] = find(parent[node])
+            return parent[node]
 
-        def union(num1, num2):
-            """merge num1 and num2""" 
-            root1 = find(num1)
-            root2 = find(num2)
-            if root1 == root2:
-                return
-            if num1 < num2:
-                small = num1
-                root_small = root1
-                big = num2
-                root_big = root2
-            else:
-                small = num2
-                root_small = root2
-                big = num1
-                root_big = root1
-            parent[big] = root_small
-            rank[root_small] += rank[root_big]
-            return rank[root_small]
+        def union(n1, n2):
+            p1 = find(n1)
+            p2 = find(n2)
+            if p1 == p2:
+                return True
+            r1 = rank[p1]
+            r2 = rank[p2]
+            if r2 > r1:
+                p1, p2 = p2, p1
+            rank[p1] += rank[p2]
+            parent[p2] = p1
+            return False
         
         for num in nums:
-            if num in parent:
+            if num in rank:
                 continue
-            parent[num] = num
             rank[num] = 1
-            if num + 1 in parent:
-                res = max(res, union(num, num + 1))
-            if num - 1 in parent:
-                res = max(res, union(num - 1, num))
-        return res
+            parent[num] = num
+            if num - 1 in rank:
+                union(num, num - 1)
+            if num + 1 in rank:
+                union(num, num + 1)
+
+        return max(rank.values())
 
 class Solution:
     def longestConsecutive(self, nums: List[int]) -> int:

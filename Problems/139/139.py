@@ -18,6 +18,24 @@ class Solution:
                     break
         return dp[-1]
 
+
+class Solution:
+    def wordBreak(self, s: str, wordDict: List[str]) -> bool:
+        wordDict.sort(key=lambda s: len(s))
+
+        dp = [False] * (len(s) + 1)
+        dp[0] = True
+        for i in range(len(wordDict[0]) - 1, len(dp)):
+            for word in wordDict:
+                if i - len(word) < 0:
+                    break
+                if dp[i - len(word)] and word == s[i - len(word): i]:
+                    dp[i] = True
+                    break
+
+        return dp[-1]
+
+
 # DP solution
 class Solution:
     def wordBreak(self, s: str, wordDict: List[str]) -> bool:

@@ -39,6 +39,21 @@ class Solution:
 
 class Solution:
     def longestConsecutive(self, nums: List[int]) -> int:
+        lengths = defaultdict(int)  # key: num, val: the length started from or ended at num
+
+        res = 0
+        for num in nums:
+            if lengths[num] != 0:
+                continue
+            lengths[num] = 1 + lengths[num - 1] + lengths[num + 1]
+            lengths[num - lengths[num - 1]] = lengths[num]
+            lengths[num + lengths[num + 1]] = lengths[num]
+            res = max(res, lengths[num])
+
+        return res
+
+class Solution:
+    def longestConsecutive(self, nums: List[int]) -> int:
         num_set = set(nums)
 
         res = 0

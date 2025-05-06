@@ -3,4 +3,4 @@ class Solution:
         res = []
         for num in nums:
             res.append(nums[num])
-        return 
+        return res

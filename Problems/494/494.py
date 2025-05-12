@@ -2,16 +2,17 @@ from typing import List
 
 class Solution:
     def findTargetSumWays(self, nums: List[int], target: int) -> int:
-        cache = {}
+        cache = {}  # key: (i, total), val: the number of ways to reach target sum
         def backtrack(i, total):
             if i == len(nums):
                 return 1 if total == target else 0
             if (i, total) in cache:
                 return cache[(i, total)]
-            add = backtrack(i + 1, total + nums[i])
-            subtract = backtrack(i + 1, total - nums[i])
-            cache[(i, total)] = add + subtract
-            return cache[(i, total)]
+            ret = 0
+            ret += backtrack(i + 1, total + nums[i])
+            ret += backtrack(i + 1, total - nums[i])
+            cache[(i, total)] = ret
+            return ret
         return backtrack(0, 0)
 
 

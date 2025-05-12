@@ -3,6 +3,29 @@ class Solution:
         if s[0] == "0":
             return 0
 
+        dp = [0] * (len(s) + 1)
+        dp[0] = 1
+
+        for i in range(len(s)):
+            j = i + 1
+            if s[i] == "0":
+                if i and s[i - 1] == "0":
+                    return 0
+                if i and int(s[i - 1]) > 2:
+                    return 0
+                dp[j] = dp[j - 2]
+            else:
+                dp[j] = dp[j - 1]
+                if i and s[i - 1] != "0" and 1 <= int(s[i - 1: i + 1]) <= 26:
+                    dp[j] += dp[j - 2]
+        return dp[-1]
+
+
+class Solution:
+    def numDecodings(self, s: str) -> int:
+        if s[0] == "0":
+            return 0
+
         def check_decode(s) -> bool:
             if len(s) == 1 and s != "0":
                 return True

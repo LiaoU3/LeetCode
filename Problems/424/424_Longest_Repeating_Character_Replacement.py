@@ -1,5 +1,21 @@
 class Solution:
     def characterReplacement(self, s: str, k: int) -> int:
+        res = 0
+        l = 0
+        table = defaultdict(int)
+        maxf = 0
+        for r in range(len(s)):
+            table[s[r]] += 1
+            maxf = max(maxf, table[s[r]])
+            while r - l + 1 - maxf  > k:
+                table[s[l]] -= 1
+                l += 1
+            res = max(res, r - l + 1)
+        return res
+
+
+class Solution:
+    def characterReplacement(self, s: str, k: int) -> int:
         table = [0] * 26
         l = r = 0
         res = 0
@@ -11,7 +27,6 @@ class Solution:
             res = max(res, r - l + 1)
 
         return res
-            
 
 
 # Cleaner solution

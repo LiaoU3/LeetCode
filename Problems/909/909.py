@@ -2,6 +2,42 @@ class Solution:
     def snakesAndLadders(self, board: List[List[int]]) -> int:
         ROW = len(board)
         COL = len(board[0])
+        TARGET = ROW * COL
+
+        def number2rc(num):
+            num -= 1
+            r = num // COL
+            c = num % COL
+            row = ROW - 1 - r
+            if r % 2 == 1:
+                c = COL - 1 - c
+            return (row, c)
+
+        visited = set()
+        q = deque([(0, 1)])  # (step, num)
+        visited.add(1)
+
+        while q:
+            step, num = q.popleft()
+            if num == TARGET:
+                return step
+            for i in range(1, 7):
+                nxt = num + i
+                if nxt > TARGET or nxt in visited:
+                    continue
+                row, col = number2rc(nxt)
+                visited.add(nxt)
+                if board[row][col] != -1:
+                    q.append((step + 1, board[row][col]))
+                else:
+                    q.append((step + 1, nxt))
+        return -1
+
+
+class Solution:
+    def snakesAndLadders(self, board: List[List[int]]) -> int:
+        ROW = len(board)
+        COL = len(board[0])
         hash_map = {}
         r = ROW - 1
         c = 0

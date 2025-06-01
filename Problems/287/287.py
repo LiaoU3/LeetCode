@@ -22,14 +22,12 @@ class Solution:
 # Hence, the solution is illegal to the problem.
 class Solution:
     def findDuplicate(self, nums: List[int]) -> int:
-        curr = 0
-        res = 0
-        while nums[curr] != -1:
-            res = nums[curr]
-            tmp = nums[curr]
-            nums[curr] = -1
-            curr = tmp
-        return res
+        i = 0
+        while nums[i] != -1:
+            nxt = nums[i]
+            nums[i] = -1
+            i = nxt
+        return i
 
 # O(N*log(N))
 class Solution:

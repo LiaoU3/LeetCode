@@ -15,3 +15,25 @@ class Solution:
                     break
 
         return True
+
+class Solution:
+    def isAlienSorted(self, words: List[str], order: str) -> bool:
+        before = defaultdict(set)
+        for i in range(len(order)):
+            for j in range(i):
+                before[order[i]].add(order[j])
+        for i in range(len(words) - 1):
+            w1 = words[i]
+            w2 = words[i + 1]
+            min_len = min(len(w1), len(w2))
+            for j in range(min_len):
+                c1 = w1[j]
+                c2 = w2[j]
+                if c1 != c2:
+                    if c1 not in before[c2]:
+                        return False
+                    break
+            else:
+                if len(w1) > len(w2):
+                    return False
+        return True
